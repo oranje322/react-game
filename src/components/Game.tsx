@@ -18,15 +18,17 @@ const CardGrid = styled.div`
   grid-template-rows: repeat(6, 1fr);
   grid-column-gap: 5px;
   grid-row-gap: 5px;
-`
+`;
+
+const initialMass = new Array(36).fill(0)
 
 const Game = () => {
     return (
         <GameContainer>
             <CardGrid>
-                <Card/>
-                <Card/>
-                <Card/>
+                {
+                    initialMass.map(value => <Card/>)
+                }
             </CardGrid>
         </GameContainer>
     );
