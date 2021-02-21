@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Game from './components/Game';
 import reportWebVitals from './reportWebVitals';
+import store from "./redux/store";
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Game />
+      <Provider store={store}>
+          <Game />
+      </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
