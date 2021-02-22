@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Card from "./Card";
 import backgroundImg from '../assets/img/background.jpg'
 import {useDispatch, useSelector} from "react-redux";
-import {IState} from "../types/reducerTypes";
-import {setCards} from "../redux/actions";
+import {IGameCard, IState} from "../types/reducerTypes";
+import {flipCard, setCards} from "../redux/actions";
 
 const GameContainer = styled.div`
     display: flex;
@@ -30,11 +30,16 @@ const Game = () => {
         dispatch(setCards())
     },[])
 
+    const handleClickCard = (card:IGameCard) => {
+        dispatch(flipCard(card.id))
+    }
+
     return (
         <GameContainer>
             <CardGrid>
                 {
                     cards.map((card, index) => <Card card={card}
+                                                     handleClickCard={handleClickCard}
                                                      key={`card${index}`}/>)
                 }
             </CardGrid>

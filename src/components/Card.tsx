@@ -37,14 +37,17 @@ const ImgBack = styled.img`
 
 
 
-const Card = ({card}:ICardProps) => {
-    const [flipped, setFlipped] = useState(true);
+const Card = ({card, handleClickCard}:ICardProps) => {
 
     const {imageUrl, isFlipped} = card
 
+    const onClickCard = () => {
+        handleClickCard(card)
+    }
+
 
     return (
-        <CardContainer onClick={()=> setFlipped(prev => !prev) } className={flipped ? 'flip' : ''}>
+        <CardContainer onClick={onClickCard} className={isFlipped ? 'flip' : ''}>
             <ImgFront src={`assets/img/${imageUrl}`} />
             <ImgBack src={`assets/img/back.jpg`} />
         </CardContainer>

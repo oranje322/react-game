@@ -6,7 +6,8 @@ export interface IState {
     currentTry: number,
     lastTry: number,
     bestTry: number,
-    allTry: Array<any>
+    allTry: Array<any>,
+    count: number
 }
 
 export type CardType = string
