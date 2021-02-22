@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
+import img from '../assets/img/ram.png'
+import back from '../assets/img/back.jpg'
 
 const CardContainer = styled.div`
-  height: 130px;
+  height: 140px;
   margin: 5px;
   position: relative;
   transform: scale(1);
@@ -32,13 +34,15 @@ const ImgBack = styled.img`
   backface-visibility: hidden;
 `;
 
-const Card = () => {
+
+
+const Card = ({card}:any) => {
     const [flipped, setFlipped] = useState(true);
 
     return (
         <CardContainer onClick={()=> setFlipped(prev => !prev) } className={flipped ? 'flip' : ''}>
-            <ImgFront src={'https://sun9-61.userapi.com/impf/c851324/v851324779/adb42/IWaThP2W07M.jpg?size=500x454&quality=96&proxy=1&sign=f732b6b232ae7cbf0ab5d62dcca21cbd&type=album'} />
-            <ImgBack src={'https://sun9-65.userapi.com/impg/swideBXoTE0rpZkJ9STfym9hikOqyqPc-JydTA/QC7oRL_aTQo.jpg?size=720x764&quality=96&proxy=1&sign=65600110a070b60cbbb67b5a5ae405f3&type=album'} />
+            <ImgFront src={`assets/img/${card}`} />
+            <ImgBack src={`assets/img/back.jpg`} />
         </CardContainer>
     );
 };
