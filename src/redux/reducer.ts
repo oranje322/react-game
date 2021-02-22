@@ -1,4 +1,4 @@
-import {FLIP_CARD, SET_CARDS} from "./const";
+import {CLOSE_ALL_CARDS, FLIP_CARD, SET_CARDS} from "./const";
 import {IState} from "../types/reducerTypes";
 import {shuffleArray} from '../utils/shuffleArray'
 import {AllActionTypes} from "../types/actionsTypes";
@@ -55,6 +55,16 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
                 count: state.count +1
             }
         }
+        case CLOSE_ALL_CARDS:
+            return {
+                ...state,
+                gameCards: state.gameCards.map(card => {
+                    return {
+                        ...card,
+                        isFlipped: false
+                    }
+                })
+            }
         default:
             return {
                 ...state
