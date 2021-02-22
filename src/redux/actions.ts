@@ -1,4 +1,5 @@
+import { ISetCards } from "../types/actionsTypes";
 import {SET_CARDS} from "./const";
 
 
-export const setCardsAC = (payload:any) => ({type: SET_CARDS, payload})
+export const setCards = ():ISetCards => ({type: SET_CARDS})

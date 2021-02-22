@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import img from '../assets/img/ram.png'
 import back from '../assets/img/back.jpg'
+import {ICardProps} from "../types/propsTypes";
 
 const CardContainer = styled.div`
   height: 140px;
@@ -36,12 +37,15 @@ const ImgBack = styled.img`
 
 
 
-const Card = ({card}:any) => {
+const Card = ({card}:ICardProps) => {
     const [flipped, setFlipped] = useState(true);
+
+    const {imageUrl, isFlipped} = card
+
 
     return (
         <CardContainer onClick={()=> setFlipped(prev => !prev) } className={flipped ? 'flip' : ''}>
-            <ImgFront src={`assets/img/${card}`} />
+            <ImgFront src={`assets/img/${imageUrl}`} />
             <ImgBack src={`assets/img/back.jpg`} />
         </CardContainer>
     );

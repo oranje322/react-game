@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "styled-components";
 import Card from "./Card";
 import backgroundImg from '../assets/img/background.jpg'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {IState} from "../types/reducerTypes";
+import {setCards} from "../redux/actions";
 
 const GameContainer = styled.div`
     display: flex;
@@ -22,12 +23,19 @@ const CardGrid = styled.div`
 
 
 const Game = () => {
-    const cards = useSelector((state: IState) => state.cards)
+    const cards = useSelector((state: IState) => state.gameCards)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(setCards())
+    },[])
+
     return (
         <GameContainer>
             <CardGrid>
                 {
-                    cards.map(card => <Card card={card}/>)
+                    cards.map((card, index) => <Card card={card}
+                                                     key={`card${index}`}/>)
                 }
             </CardGrid>
         </GameContainer>
