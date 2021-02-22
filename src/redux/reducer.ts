@@ -1,10 +1,10 @@
 import { SET_CARDS } from "./const";
-import {IInitialState} from "./reduxTypes";
+import {IState} from "../types/reducerTypes";
+import {shuffleArray} from '../utils/shuffleArray'
 
 
 
-
-const initialState: IInitialState = {
+const initialState: IState = {
     cards: [
         'aila.png', 'akame.png', 'aqua.png', 'asuna.png', 'beatriss.png',
         'cc.png', 'darkness.png', 'emiliya.png', 'eren.png', 'hickigaya.png',

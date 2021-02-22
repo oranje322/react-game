@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Card from "./Card";
 import backgroundImg from '../assets/img/background.jpg'
 import {useSelector} from "react-redux";
-import {IInitialState} from "../redux/reduxTypes";
+import {IState} from "../types/reducerTypes";
 
 const GameContainer = styled.div`
     display: flex;
@@ -22,7 +22,7 @@ const CardGrid = styled.div`
 
 
 const Game = () => {
-    const cards = useSelector((state: IInitialState) => state.cards)
+    const cards = useSelector((state: IState) => state.cards)
     return (
         <GameContainer>
             <CardGrid>
