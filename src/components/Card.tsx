@@ -48,8 +48,8 @@ const Card = ({card, handleClickCard}:ICardProps) => {
 
     return (
         <CardContainer onClick={onClickCard} className={isFlipped ? 'flip' : ''}>
-            <ImgFront src={`assets/img/${imageUrl}`} />
-            <ImgBack src={`assets/img/back.jpg`} />
+            <ImgFront src={`/img/${imageUrl}`} />
+            <ImgBack src={`/img/backface.jpg`} />
         </CardContainer>
     );
 };
