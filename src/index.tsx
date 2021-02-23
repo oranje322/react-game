@@ -9,9 +9,8 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   body {
-    height: 100vh;
-    background: rgb(2,0,36);
-    background: linear-gradient(191deg, rgba(2,0,36,1) 0%, rgba(194,93,200,0.9668242296918768) 28%, rgba(154,210,222,1) 76%);
+    min-height: 100vh;
+    background: url(https://sun9-35.userapi.com/impg/n_F3UOoA2bV6DTGiAvSZSYN7q35EDMdFN1dYMA/JW_kt4zbp7I.jpg?size=1366x768&quality=96&proxy=1&sign=c0696e348543088962f0693f25c0dd65&type=album) 0 0/cover no-repeat;
   }
 `
 

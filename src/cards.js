@@ -1,4 +1,4 @@
-const cards = [
+const cardsMass = [
     'aila.png', 'akame.png', 'aqua.png', 'asuna.png', 'beatriss.png',
     'cc.png', 'darkness.png', 'emiliya.png', 'eren.png', 'hickigaya.png',
     'julis.png', 'kaneki.png', 'kirito.png', 'kproject.png', 'kurisu.png',
@@ -7,4 +7,4 @@ const cards = [
     'yato.png', 'yuki.png', 'yukino.png', 'yumeko.png', 'zerotwo.png',
 ]
 
-export default cards
+export default cardsMass

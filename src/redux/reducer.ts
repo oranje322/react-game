@@ -1,6 +1,5 @@
 import {CLOSE_ALL_CARDS, FLIP_CARD, SET_CARDS} from "./const";
 import {IState} from "../types/reducerTypes";
-import {shuffleArray} from '../utils/shuffleArray'
 import {AllActionTypes} from "../types/actionsTypes";
 
 
@@ -27,16 +26,10 @@ const initialState: IState = {
 const reducer = (state = initialState, action: AllActionTypes):IState => {
     switch (action.type) {
         case SET_CARDS: {
-            let pairCount = 18;
-            let oldCards = shuffleArray(state.cards).slice(0, pairCount)
-            const cards = shuffleArray([...oldCards, ...oldCards]).map((imageUrl, index) => ({
-                id: index,
-                imageUrl,
-                isFlipped: true,
-            }))
+            console.log('dfdfsdf')
             return {
                 ...state,
-                gameCards: cards,
+                gameCards: action.payload,
                 isFinished: false
             }
         }

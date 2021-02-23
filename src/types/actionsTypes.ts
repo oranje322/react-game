@@ -4,6 +4,7 @@ import {IGameCard} from "./reducerTypes";
 
 export interface ISetCards {
     type: typeof SET_CARDS
+    payload: IGameCard[]
 }
 
 export interface IFlipCard {

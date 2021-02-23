@@ -5,6 +5,7 @@ import backgroundImg from '../assets/img/background.jpg'
 import {useDispatch, useSelector} from "react-redux";
 import {IGameCard, IState} from "../types/reducerTypes";
 import {flipCard, setCards} from "../redux/actions";
+import {setCardsThunk} from "../redux/thunk";
 
 const GameContainer = styled.div`
     display: flex;
@@ -26,8 +27,11 @@ const Game = () => {
     const cards = useSelector((state: IState) => state.gameCards)
     const dispatch = useDispatch()
 
+
+
     useEffect(() => {
-        dispatch(setCards())
+        console.log('useeffect')
+        dispatch(setCardsThunk())
     },[])
 
     const handleClickCard = (card:IGameCard) => {
