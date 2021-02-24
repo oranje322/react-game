@@ -40,23 +40,21 @@ const ImgBack = styled.img`
 `;
 
 
-
-const Card = ({card}:ICardProps) => {
+const Card = ({card}: ICardProps) => {
 
     const dispatch = useDispatch()
 
-    const {imageUrl, isFlipped} = card
+    const {imageUrl, isFlipped, pairFound} = card
 
     const onClickCard = () => {
         dispatch(flipCardThunk(card))
     }
 
 
-
     return (
-        <CardContainer onClick={onClickCard} className={isFlipped ? 'flip' : ''}>
-            <ImgFront src={`/img/${imageUrl}`} />
-            <ImgBack src={`/img/backface.jpg`} />
+        <CardContainer onClick={onClickCard} className={`${isFlipped ? 'flip' : ''} ${pairFound ? 'disable' : ''}`}>
+            <ImgFront src={`/img/${imageUrl}`}/>
+            <ImgBack src={`/img/backface.jpg`}/>
         </CardContainer>
     );
 };
