@@ -3,6 +3,8 @@ import styled from "styled-components";
 import img from '../assets/img/ram.png'
 import back from '../assets/img/back.jpg'
 import {ICardProps} from "../types/propsTypes";
+import {useDispatch} from "react-redux";
+import {flipCardThunk} from "../redux/thunk";
 
 const CardContainer = styled.div`
   height: 140px;
@@ -16,7 +18,9 @@ const CardContainer = styled.div`
   box-shadow: 0 0 12px 9px rgba(0, 201, 6, 0.33);
   }
   &.flip {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg);}
+  &.disable {
+    pointer-events: none;}
 `;
 
 const ImgFront = styled.img`
@@ -37,13 +41,16 @@ const ImgBack = styled.img`
 
 
 
-const Card = ({card, handleClickCard}:ICardProps) => {
+const Card = ({card}:ICardProps) => {
+
+    const dispatch = useDispatch()
 
     const {imageUrl, isFlipped} = card
 
     const onClickCard = () => {
-        handleClickCard(card)
+        dispatch(flipCardThunk(card))
     }
+
 
 
     return (

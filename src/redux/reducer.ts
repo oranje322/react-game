@@ -1,4 +1,4 @@
-import {CLOSE_ALL_CARDS, FLIP_CARD, SET_CARDS} from "./const";
+import {CLEAR_FLIPPED_CARDS, CLOSE_ALL_CARDS, FLIP_CARD, SET_CARDS, SET_FLIPPED_CARD} from "./const";
 import {IState} from "../types/reducerTypes";
 import {AllActionTypes} from "../types/actionsTypes";
 
@@ -22,7 +22,8 @@ const initialState: IState = {
         "spades_Q.jpg"
     ],
     gameCards: [],
-    isStarted: false,
+    flippedCards: [],
+    isStarted: true,
     isFinished: false,
     currentTry: 0,
     lastTry: 0,
@@ -35,7 +36,6 @@ const initialState: IState = {
 const reducer = (state = initialState, action: AllActionTypes):IState => {
     switch (action.type) {
         case SET_CARDS: {
-            console.log('dfdfsdf')
             return {
                 ...state,
                 gameCards: action.payload,
@@ -55,6 +55,18 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
                     return card
                 }),
                 count: state.count +1
+            }
+        }
+        case SET_FLIPPED_CARD: {
+            return {
+                ...state,
+                flippedCards: [...state.flippedCards, action.payload]
+            }
+        }
+        case CLEAR_FLIPPED_CARDS: {
+            return {
+                ...state,
+                flippedCards: []
             }
         }
         case CLOSE_ALL_CARDS:

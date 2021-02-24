@@ -30,20 +30,19 @@ const Game = () => {
 
 
     useEffect(() => {
-        console.log('useeffect')
         dispatch(setCardsThunk())
     },[])
 
-    const handleClickCard = (card:IGameCard) => {
-        dispatch(flipCard(card.id))
-    }
+    // const handleClickCard = (card:IGameCard) => {
+    //     dispatch(flipCard(card.id))
+    // }
 
     return (
         <GameContainer>
             <CardGrid>
                 {
                     cards.map((card, index) => <Card card={card}
-                                                     handleClickCard={handleClickCard}
+                                                     // handleClickCard={handleClickCard}
                                                      key={`card${index}`}/>)
                 }
             </CardGrid>

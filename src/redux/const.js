@@ -1,3 +1,5 @@
 export const SET_CARDS = 'SET_CARDS'
 export const FLIP_CARD = 'FLIP_CARD'
 export const CLOSE_ALL_CARDS = 'CLOSE_ALL_CARDS'
+export const SET_FLIPPED_CARD = 'SET_FLIPPED_CARD'
+export const CLEAR_FLIPPED_CARDS = 'CLEAR_FLIPPED_CARDS'
