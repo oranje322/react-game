@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {ISettingsProps} from "../types/propsTypes";
+import {useDispatch} from "react-redux";
+import { setSettings } from "../redux/actions";
 
 
 const SettingsOverlay = styled.div`
@@ -81,6 +83,21 @@ const Button = styled.button`
 
 export const Settings = ({setOpenSettings}:ISettingsProps) => {
 
+    const [gameMode, setGameMode] = useState(0)
+    const [speed, setSpeed] = useState(3000)
+    const [showCards, setShowCards] = useState(false)
+
+    const dispatch = useDispatch()
+
+    const onClickSaveSettings = () => {
+        dispatch(setSettings({
+            gameMode,
+            speed,
+            showCards
+        }))
+        setOpenSettings(false)
+    }
+
 
     return (
         <SettingsOverlay>
@@ -100,7 +117,7 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
                 </InputWrapper>
                 <InputWrapper>
                     <Label>Game Mode</Label>
-                    <Select value={0}>
+                    <Select value={gameMode} onChange={(e)=> setGameMode(Number(e.target.value))}>
                         <option value="0">Junior</option>
                         <option value="1">Middle</option>
                         <option value="2">Senior</option>
@@ -108,21 +125,23 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
                 </InputWrapper>
                 <InputWrapper>
                     <Label>Speed</Label>
-                    <Select value={0}>
-                        <option value="1500">Slow</option>
-                        <option value="1000">Standart</option>
-                        <option value="500">Fast</option>
+                    <Select value={speed} onChange={(e)=> setSpeed(Number(e.target.value))}>
+                        <option value="3000">Slow</option>
+                        <option value="2000">Standart</option>
+                        <option value="1000">Fast</option>
                     </Select>
                 </InputWrapper>
                 <InputWrapper style={{borderBottom: '1px solid black'}}>
                     <Label>Show cards at start</Label>
-                    <CheckBox checked={true}/>
+                    <CheckBox checked={showCards} onChange={(e)=> setShowCards(e.target.checked)}/>
                 </InputWrapper>
                 <ButtonsWrapper>
-                    <Button>
+                    <Button onClick={onClickSaveSettings}>
                         Save
                     </Button>
-                    <Button onClick={() => setOpenSettings(false)}>Cancel</Button>
+                    <Button onClick={() => setOpenSettings(false)}>
+                        Cancel
+                    </Button>
                 </ButtonsWrapper>
             </SettingsWrapper>
         </SettingsOverlay>

@@ -22,14 +22,14 @@ export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionType
         const cards = shuffleArray([...oldCards, ...oldCards]).map((imageUrl, index) => ({
             id: index,
             imageUrl,
-            isFlipped: true,
+            isFlipped: getState().showCards,
             pairFound: false
         }))
         dispatch(setCards(cards))
         setTimeout(() => {
             dispatch(closeAllCards())
             dispatch(startGame())
-        }, 3000)
+        }, getState().speed)
 
 
     }
@@ -83,7 +83,7 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
                     }
 
                 }
-            }, 1500)
+            }, getState().speed)
         }
     }
 }

@@ -4,7 +4,7 @@ import {
     CLOSE_CARD, FINISH_GAME,
     FLIP_CARD, PAIRS_FOUND,
     SET_CARDS,
-    SET_FLIPPED_CARD, SET_MODE,
+    SET_FLIPPED_CARD, SET_SETTINGS,
     START_GAME
 } from "../redux/const";
 import {IGameCard, IStat} from "./reducerTypes";
@@ -47,9 +47,15 @@ export interface IFinishGame {
     payload: IStat
 }
 
-export interface ISetMode {
-    type: typeof SET_MODE,
-    payload: number
+export interface ISetSettings {
+    type: typeof SET_SETTINGS,
+    payload: ISettings
+}
+
+export interface ISettings {
+    gameMode: number,
+    speed: number,
+    showCards: boolean
 }
 
 export interface IPairsFound {
@@ -61,4 +67,4 @@ export interface IPairsFound {
 
 export type AllActionTypes = ISetCards | IFlipCard | ICloseAllCards |
     ISetFlippedCard | IClearFlippedCards | IStartGame | ICloseCard |
-    ISetMode | IFinishGame | IPairsFound
+    ISetSettings | IFinishGame | IPairsFound

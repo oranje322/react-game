@@ -7,7 +7,8 @@ import {
     IPairsFound,
     ISetCards,
     ISetFlippedCard,
-    ISetMode,
+    ISetSettings,
+    ISettings,
     IStartGame
 } from "../types/actionsTypes";
 import {
@@ -19,7 +20,7 @@ import {
     PAIRS_FOUND,
     SET_CARDS,
     SET_FLIPPED_CARD,
-    SET_MODE,
+    SET_SETTINGS,
     START_GAME
 } from "./const";
 import {IGameCard, IStat} from "../types/reducerTypes";
@@ -33,5 +34,5 @@ export const clearFlippedCards = ():IClearFlippedCards => ({type: CLEAR_FLIPPED_
 export const closeAllCards = ():ICloseAllCards => ({type: CLOSE_ALL_CARDS})
 export const startGame = ():IStartGame => ({type: START_GAME})
 export const finishGame = (payload:IStat):IFinishGame => ({type: FINISH_GAME, payload})
-export const setMode = (payload:number):ISetMode => ({type: SET_MODE, payload})
+export const setSettings = (payload:ISettings):ISetSettings => ({type: SET_SETTINGS, payload})
 export const pairsFoundAC = (payload:number):IPairsFound => ({type: PAIRS_FOUND, payload})

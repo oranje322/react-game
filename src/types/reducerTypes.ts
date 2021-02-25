@@ -6,6 +6,8 @@ export interface IState {
     isStarted: boolean,
     isFinished: boolean,
     gameMode: number,
+    speed: number,
+    showCards: boolean,
     stat: Array<IStat>,
     count: number
 }
