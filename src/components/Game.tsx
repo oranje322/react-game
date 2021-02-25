@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styled from "styled-components";
 import Card from "./Card";
 import backgroundImg from '../assets/img/background.jpg'
@@ -7,6 +7,7 @@ import {IGameCard, IState} from "../types/reducerTypes";
 import {flipCard, setCards} from "../redux/actions";
 import {newGameThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
+import { Settings } from './Settings';
 
 const GameContainer = styled.div`
     display: flex;
@@ -25,9 +26,11 @@ const CardGrid = styled.div`
 `;
 
 
-const Game = () => {
+const Game:FC = () => {
     const cards = useSelector((state: IState) => state.gameCards)
     const dispatch = useDispatch()
+
+    const [openSettings, setOpenSettings] = useState(true)
 
 
 
@@ -48,7 +51,11 @@ const Game = () => {
                                                      key={`card${index}`}/>)
                 }
             </CardGrid>
-            <GameMenu/>
+            <GameMenu setOpenSettings={setOpenSettings}/>
+            {
+                openSettings ? <Settings setOpenSettings={setOpenSettings}/> : ''
+            }
+
         </GameContainer>
     );
 };

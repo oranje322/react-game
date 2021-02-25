@@ -4,6 +4,7 @@ import Stats from "./Stats";
 import {useDispatch} from "react-redux";
 import {closeAllCards, startGame} from "../redux/actions";
 import {newGameThunk} from "../redux/thunk";
+import {IGameMenuProps} from "../types/propsTypes";
 
 const GameMenuContainer = styled.div`
     margin-left: 30px;
@@ -17,8 +18,7 @@ const SettingsBtn = styled.button`
   outline: none;
   cursor: pointer;
   padding: 10px 10px;
-  background: #f5f6ef
-  margin-top: 30px;
+  background: #f5f6ef;
   border-radius: 3px;
   font-size: 18px;
   max-width: 120px;
@@ -27,7 +27,7 @@ const SettingsBtn = styled.button`
 
 
 
-const GameMenu = () => {
+const GameMenu = ({setOpenSettings}:IGameMenuProps) => {
 
     const dispatch = useDispatch()
 
@@ -39,7 +39,7 @@ const GameMenu = () => {
     return (
         <GameMenuContainer>
             <Stats/>
-            <SettingsBtn>Settings</SettingsBtn>
+            <SettingsBtn onClick={()=> setOpenSettings(true)}>Settings</SettingsBtn>
             <SettingsBtn onClick={onClickStartGame}>
                 New Game
             </SettingsBtn>

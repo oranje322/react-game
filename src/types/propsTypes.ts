@@ -2,6 +2,12 @@ import {IGameCard} from "./reducerTypes";
 
 export interface ICardProps {
     card: IGameCard,
-    // handleClickCard: (card:IGameCard) => void
+}
 
+export interface ISettingsProps {
+    setOpenSettings: (v:boolean) => void
+}
+
+export interface IGameMenuProps {
+    setOpenSettings: (v:boolean) => void
 }
