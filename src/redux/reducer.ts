@@ -38,10 +38,26 @@ const initialState: IState = {
     isStarted: false,
     isFinished: false,
     gameMode: 0,
-    currentTry: 0,
-    lastTry: 0,
-    bestTry: 0,
-    allTry: [],
+    stat: [{
+        try: 1,
+        steps: 30,
+        gameMode: 0
+    },
+        {try: 2,
+            steps: 35,
+            gameMode: 0},
+        {
+            try: 3,
+            steps: 66,
+            gameMode: 1
+        },
+        {
+            try: 4,
+            steps: 30,
+            gameMode: 2
+        }
+
+    ],
     count: 0
 }
 

@@ -6,10 +6,7 @@ export interface IState {
     isStarted: boolean,
     isFinished: boolean,
     gameMode: number,
-    currentTry: number,
-    lastTry: number,
-    bestTry: number,
-    allTry: Array<any>,
+    stat: Array<IStat>,
     count: number
 }
 
@@ -21,3 +18,11 @@ export interface IGameCard {
     isFlipped: boolean,
     pairFound: boolean
 }
+
+export interface IStat {
+    try: number,
+    steps: number,
+    gameMode: number
+}
+
+

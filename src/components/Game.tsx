@@ -8,6 +8,7 @@ import {flipCard, setCards} from "../redux/actions";
 import {newGameThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
 import { Settings } from './Settings';
+import {Stats} from "./Stats";
 
 const GameContainer = styled.div`
     display: flex;
@@ -30,7 +31,8 @@ const Game:FC = () => {
     const cards = useSelector((state: IState) => state.gameCards)
     const dispatch = useDispatch()
 
-    const [openSettings, setOpenSettings] = useState(true)
+    const [openSettings, setOpenSettings] = useState(false)
+    const [openStats, setOpenStats] = useState(false)
 
 
 
@@ -51,9 +53,15 @@ const Game:FC = () => {
                                                      key={`card${index}`}/>)
                 }
             </CardGrid>
-            <GameMenu setOpenSettings={setOpenSettings}/>
+            <GameMenu setOpenSettings={setOpenSettings}
+                      setOpenStats={setOpenStats}/>
             {
-                openSettings ? <Settings setOpenSettings={setOpenSettings}/> : ''
+                openSettings && <Settings setOpenSettings={setOpenSettings}
+                />
+            }
+
+            {
+                openStats && <Stats setOpenStats={setOpenStats}/>
             }
 
         </GameContainer>
