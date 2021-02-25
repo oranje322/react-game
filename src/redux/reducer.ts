@@ -2,7 +2,9 @@ import {
     CLEAR_FLIPPED_CARDS,
     CLOSE_ALL_CARDS,
     CLOSE_CARD,
+    FINISH_GAME,
     FLIP_CARD,
+    PAIRS_FOUND,
     SET_CARDS,
     SET_FLIPPED_CARD,
     SET_MODE,
@@ -32,6 +34,7 @@ const initialState: IState = {
     ],
     gameCards: [],
     flippedCards: [],
+    pairsFound: 0,
     isStarted: false,
     isFinished: false,
     gameMode: 0,
@@ -60,7 +63,21 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
         case START_GAME: {
             return {
                 ...state,
-                isStarted: true
+                isStarted: true,
+                isFinished: false
+            }
+        }
+        case FINISH_GAME: {
+            return {
+                ...state,
+                isStarted: false,
+                isFinished: true
+            }
+        }
+        case PAIRS_FOUND: {
+            return {
+                ...state,
+                pairsFound: action.payload
             }
         }
         case FLIP_CARD: {

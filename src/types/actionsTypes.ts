@@ -1,8 +1,8 @@
 import {
     CLEAR_FLIPPED_CARDS,
     CLOSE_ALL_CARDS,
-    CLOSE_CARD,
-    FLIP_CARD,
+    CLOSE_CARD, FINISH_GAME,
+    FLIP_CARD, PAIRS_FOUND,
     SET_CARDS,
     SET_FLIPPED_CARD, SET_MODE,
     START_GAME
@@ -42,12 +42,22 @@ export interface IStartGame {
     type: typeof START_GAME
 }
 
+export interface IFinishGame {
+    type: typeof FINISH_GAME
+}
+
 export interface ISetMode {
     type: typeof SET_MODE,
+    payload: number
+}
+
+export interface IPairsFound {
+    type: typeof PAIRS_FOUND,
     payload: number
 }
 
 
 
 export type AllActionTypes = ISetCards | IFlipCard | ICloseAllCards |
-    ISetFlippedCard | IClearFlippedCards | IStartGame | ICloseCard | ISetMode
+    ISetFlippedCard | IClearFlippedCards | IStartGame | ICloseCard |
+    ISetMode | IFinishGame | IPairsFound

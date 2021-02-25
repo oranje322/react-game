@@ -1,12 +1,14 @@
-import { ThunkAction } from "redux-thunk";
-import { AllActionTypes } from "../types/actionsTypes";
+import {ThunkAction} from "redux-thunk";
+import {AllActionTypes} from "../types/actionsTypes";
 import {IGameCard, IState} from "../types/reducerTypes";
+import { gameMode } from "../utils/gameMode";
 import {shuffleArray} from "../utils/shuffleArray";
-import {clearFlippedCards, closeCard, flipCard, setCards, setFlippedCard} from "./actions";
+import {clearFlippedCards, closeCard, finishGame, flipCard, pairsFoundAC, setCards, setFlippedCard} from "./actions";
 
-export const setCardsThunk = ():ThunkAction<void, IState, unknown, AllActionTypes> => {
+export const setCardsThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
-        let pairCount = 5;
+        let pairCount = gameMode(getState().gameMode)
+
         let oldCards = shuffleArray(getState().cards).slice(0, pairCount)
         const cards = shuffleArray([...oldCards, ...oldCards]).map((imageUrl, index) => ({
             id: index,
@@ -19,23 +21,23 @@ export const setCardsThunk = ():ThunkAction<void, IState, unknown, AllActionType
     }
 }
 
-export const flipCardThunk = (card:IGameCard):ThunkAction<void, IState, unknown, AllActionTypes> => {
+export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
-        if(getState().isStarted){
-            if(getState().flippedCards.length < 2) {
-                if(getState().flippedCards[0]?.id !== card.id){
+        if (getState().isStarted) {
+            if (getState().flippedCards.length < 2) {
+                if (getState().flippedCards[0]?.id !== card.id) {
                     dispatch(flipCard(card.id))
                     dispatch(setFlippedCard(card))
                 }
 
             }
 
-            setTimeout(()=> {
-            if(getState().flippedCards.length === 2) {
-                //если имена карт совпали, диспатчим эту пару с флагом pairFround=true
-                    if(getState().flippedCards[0].imageUrl === getState().flippedCards[1].imageUrl) {
+            setTimeout(() => {
+                if (getState().flippedCards.length === 2) {
+                    //если имена карт совпали, диспатчим эту пару с флагом pairFround=true
+                    if (getState().flippedCards[0].imageUrl === getState().flippedCards[1].imageUrl) {
                         let changedCards = getState().gameCards.map(card => {
-                            if(card.imageUrl === getState().flippedCards[0].imageUrl) {
+                            if (card.imageUrl === getState().flippedCards[0].imageUrl) {
                                 return {
                                     id: card.id,
                                     imageUrl: card.imageUrl,
@@ -46,15 +48,24 @@ export const flipCardThunk = (card:IGameCard):ThunkAction<void, IState, unknown,
                                 return card
                             }
                         })
+                            //успешный диспатч
+                        dispatch(pairsFoundAC(getState().pairsFound +1))
                         dispatch(setCards(changedCards))
                         dispatch(clearFlippedCards())
+
+                        if(getState().pairsFound === gameMode(getState().gameMode)) {
+                            dispatch(finishGame())
+                        }
+
                     } else {
+                        //провальный диспатч
                         dispatch(closeCard(getState().flippedCards[0].id))
                         dispatch(closeCard(getState().flippedCards[1].id))
                         dispatch(clearFlippedCards())
                     }
 
-            }},1500)
+                }
+            }, 1500)
         }
     }
 }

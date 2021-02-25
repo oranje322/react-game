@@ -1,7 +1,8 @@
 export interface IState {
     cards: CardType[],
     gameCards: IGameCard[],
-    flippedCards: Array<IGameCard>
+    flippedCards: Array<IGameCard>,
+    pairsFound: number,
     isStarted: boolean,
     isFinished: boolean,
     gameMode: number,

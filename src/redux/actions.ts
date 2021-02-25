@@ -2,7 +2,9 @@ import {
     IClearFlippedCards,
     ICloseAllCards,
     ICloseCard,
+    IFinishGame,
     IFlipCard,
+    IPairsFound,
     ISetCards,
     ISetFlippedCard,
     ISetMode,
@@ -12,7 +14,9 @@ import {
     CLEAR_FLIPPED_CARDS,
     CLOSE_ALL_CARDS,
     CLOSE_CARD,
+    FINISH_GAME,
     FLIP_CARD,
+    PAIRS_FOUND,
     SET_CARDS,
     SET_FLIPPED_CARD,
     SET_MODE,
@@ -28,4 +32,6 @@ export const setFlippedCard = (payload:IGameCard):ISetFlippedCard => ({type: SET
 export const clearFlippedCards = ():IClearFlippedCards => ({type: CLEAR_FLIPPED_CARDS})
 export const closeAllCards = ():ICloseAllCards => ({type: CLOSE_ALL_CARDS})
 export const startGame = ():IStartGame => ({type: START_GAME})
+export const finishGame = ():IFinishGame => ({type: FINISH_GAME})
 export const setMode = (payload:number):ISetMode => ({type: SET_MODE, payload})
+export const pairsFoundAC = (payload:number):IPairsFound => ({type: PAIRS_FOUND, payload})
