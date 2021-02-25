@@ -9,10 +9,6 @@ const GameMenuContainer = styled.div`
    
 `;
 
-const GameStat = styled.div`
-
-`;
-
 const SettingsBtn = styled.button`
   border: none;
   outline: none;

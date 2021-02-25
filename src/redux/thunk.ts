@@ -23,8 +23,11 @@ export const flipCardThunk = (card:IGameCard):ThunkAction<void, IState, unknown,
     return (dispatch, getState) => {
         if(getState().isStarted){
             if(getState().flippedCards.length < 2) {
-                dispatch(flipCard(card.id))
-                dispatch(setFlippedCard(card))
+                if(getState().flippedCards[0]?.id !== card.id){
+                    dispatch(flipCard(card.id))
+                    dispatch(setFlippedCard(card))
+                }
+
             }
 
             setTimeout(()=> {
@@ -44,6 +47,7 @@ export const flipCardThunk = (card:IGameCard):ThunkAction<void, IState, unknown,
                             }
                         })
                         dispatch(setCards(changedCards))
+                        dispatch(clearFlippedCards())
                     } else {
                         dispatch(flipCard(getState().flippedCards[0].id))
                         dispatch(flipCard(getState().flippedCards[1].id))
