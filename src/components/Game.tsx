@@ -5,7 +5,7 @@ import backgroundImg from '../assets/img/background.jpg'
 import {useDispatch, useSelector} from "react-redux";
 import {IGameCard, IState} from "../types/reducerTypes";
 import {flipCard, setCards} from "../redux/actions";
-import {setCardsThunk} from "../redux/thunk";
+import {newGameThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
 
 const GameContainer = styled.div`
@@ -32,7 +32,7 @@ const Game = () => {
 
 
     useEffect(() => {
-        dispatch(setCardsThunk())
+        dispatch(newGameThunk())
     },[])
 
     // const handleClickCard = (card:IGameCard) => {

@@ -3,9 +3,18 @@ import {AllActionTypes} from "../types/actionsTypes";
 import {IGameCard, IState} from "../types/reducerTypes";
 import { gameMode } from "../utils/gameMode";
 import {shuffleArray} from "../utils/shuffleArray";
-import {clearFlippedCards, closeCard, finishGame, flipCard, pairsFoundAC, setCards, setFlippedCard} from "./actions";
+import {
+    clearFlippedCards,
+    closeAllCards,
+    closeCard,
+    finishGame,
+    flipCard,
+    pairsFoundAC,
+    setCards,
+    setFlippedCard, startGame
+} from "./actions";
 
-export const setCardsThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
+export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
         let pairCount = gameMode(getState().gameMode)
 
@@ -17,6 +26,11 @@ export const setCardsThunk = (): ThunkAction<void, IState, unknown, AllActionTyp
             pairFound: false
         }))
         dispatch(setCards(cards))
+        setTimeout(() => {
+            dispatch(closeAllCards())
+            dispatch(startGame())
+        }, 3000)
+
 
     }
 }

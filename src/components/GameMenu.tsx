@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Stats from "./Stats";
 import {useDispatch} from "react-redux";
 import {closeAllCards, startGame} from "../redux/actions";
+import {newGameThunk} from "../redux/thunk";
 
 const GameMenuContainer = styled.div`
     margin-left: 30px;
@@ -30,9 +31,9 @@ const GameMenu = () => {
 
     const dispatch = useDispatch()
 
+
     const onClickStartGame = () => {
-        dispatch(closeAllCards())
-        dispatch(startGame())
+        dispatch(newGameThunk())
     }
 
     return (
