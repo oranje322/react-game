@@ -124,10 +124,7 @@ export const Stats = ({setOpenStats}: IStatsProps) => {
 
 
                 <ButtonsWrapper>
-                    <Button>
-                        Save
-                    </Button>
-                    <Button onClick={() => setOpenStats(false)}>Cancel</Button>
+                    <Button onClick={() => setOpenStats(false)}>Close</Button>
                 </ButtonsWrapper>
             </SettingsWrapper>
         </SettingsOverlay>

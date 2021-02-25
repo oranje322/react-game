@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
-import Stats from "./Counter";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {closeAllCards, startGame} from "../redux/actions";
 import {newGameThunk} from "../redux/thunk";
 import {IGameMenuProps} from "../types/propsTypes";
-import Counter from "./Counter";
+import {IState} from "../types/reducerTypes";
 
 const GameMenuContainer = styled.div`
     margin-left: 30px;
@@ -26,11 +25,20 @@ const SettingsBtn = styled.button`
   margin-bottom: 10px;
 `;
 
+const CounterText = styled.p`
+   color: #fff;
+   margin: 5px 0;
+   font-size: 18px;
+   margin-bottom: 20px;
+`;
+
 
 
 const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
 
     const dispatch = useDispatch()
+
+    const count = useSelector((state:IState) => state.count)
 
 
     const onClickStartGame = () => {
@@ -39,7 +47,7 @@ const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
 
     return (
         <GameMenuContainer>
-            <Counter/>
+            <CounterText>Current steps: {count}</CounterText>
             <SettingsBtn onClick={() => setOpenStats(true)}>
                 Stats
             </SettingsBtn>
