@@ -5,6 +5,7 @@ import {
     FLIP_CARD,
     SET_CARDS,
     SET_FLIPPED_CARD,
+    SET_MODE,
     START_GAME
 } from "./const";
 import {IState} from "../types/reducerTypes";
@@ -33,12 +34,12 @@ const initialState: IState = {
     flippedCards: [],
     isStarted: false,
     isFinished: false,
+    gameMode: 0,
     currentTry: 0,
     lastTry: 0,
     bestTry: 0,
     allTry: [],
     count: 0
-
 }
 
 const reducer = (state = initialState, action: AllActionTypes):IState => {
@@ -48,6 +49,12 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
                 ...state,
                 gameCards: action.payload,
                 isFinished: false
+            }
+        }
+        case SET_MODE: {
+            return {
+                ...state,
+                gameMode: action.payload
             }
         }
         case START_GAME: {

@@ -4,7 +4,7 @@ import {
     CLOSE_CARD,
     FLIP_CARD,
     SET_CARDS,
-    SET_FLIPPED_CARD,
+    SET_FLIPPED_CARD, SET_MODE,
     START_GAME
 } from "../redux/const";
 import {IGameCard} from "./reducerTypes";
@@ -42,7 +42,12 @@ export interface IStartGame {
     type: typeof START_GAME
 }
 
+export interface ISetMode {
+    type: typeof SET_MODE,
+    payload: number
+}
+
 
 
 export type AllActionTypes = ISetCards | IFlipCard | ICloseAllCards |
-    ISetFlippedCard | IClearFlippedCards | IStartGame | ICloseCard
+    ISetFlippedCard | IClearFlippedCards | IStartGame | ICloseCard | ISetMode

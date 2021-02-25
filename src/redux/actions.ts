@@ -5,6 +5,7 @@ import {
     IFlipCard,
     ISetCards,
     ISetFlippedCard,
+    ISetMode,
     IStartGame
 } from "../types/actionsTypes";
 import {
@@ -14,6 +15,7 @@ import {
     FLIP_CARD,
     SET_CARDS,
     SET_FLIPPED_CARD,
+    SET_MODE,
     START_GAME
 } from "./const";
 import {IGameCard} from "../types/reducerTypes";
@@ -26,3 +28,4 @@ export const setFlippedCard = (payload:IGameCard):ISetFlippedCard => ({type: SET
 export const clearFlippedCards = ():IClearFlippedCards => ({type: CLEAR_FLIPPED_CARDS})
 export const closeAllCards = ():ICloseAllCards => ({type: CLOSE_ALL_CARDS})
 export const startGame = ():IStartGame => ({type: START_GAME})
+export const setMode = (payload:number):ISetMode => ({type: SET_MODE, payload})

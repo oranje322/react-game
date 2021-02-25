@@ -4,6 +4,7 @@ export interface IState {
     flippedCards: Array<IGameCard>
     isStarted: boolean,
     isFinished: boolean,
+    gameMode: number,
     currentTry: number,
     lastTry: number,
     bestTry: number,
