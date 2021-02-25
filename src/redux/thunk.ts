@@ -2,11 +2,11 @@ import { ThunkAction } from "redux-thunk";
 import { AllActionTypes } from "../types/actionsTypes";
 import {IGameCard, IState} from "../types/reducerTypes";
 import {shuffleArray} from "../utils/shuffleArray";
-import {clearFlippedCards, flipCard, setCards, setFlippedCard} from "./actions";
+import {clearFlippedCards, closeCard, flipCard, setCards, setFlippedCard} from "./actions";
 
 export const setCardsThunk = ():ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
-        let pairCount = 9;
+        let pairCount = 5;
         let oldCards = shuffleArray(getState().cards).slice(0, pairCount)
         const cards = shuffleArray([...oldCards, ...oldCards]).map((imageUrl, index) => ({
             id: index,
@@ -49,12 +49,12 @@ export const flipCardThunk = (card:IGameCard):ThunkAction<void, IState, unknown,
                         dispatch(setCards(changedCards))
                         dispatch(clearFlippedCards())
                     } else {
-                        dispatch(flipCard(getState().flippedCards[0].id))
-                        dispatch(flipCard(getState().flippedCards[1].id))
+                        dispatch(closeCard(getState().flippedCards[0].id))
+                        dispatch(closeCard(getState().flippedCards[1].id))
                         dispatch(clearFlippedCards())
                     }
 
-            }},1000)
+            }},1500)
         }
     }
 }

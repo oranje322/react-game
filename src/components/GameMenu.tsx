@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import Stats from "./Stats";
+import {useDispatch} from "react-redux";
+import {closeAllCards, startGame} from "../redux/actions";
 
 const GameMenuContainer = styled.div`
     margin-left: 30px;
@@ -25,11 +27,19 @@ const SettingsBtn = styled.button`
 
 
 const GameMenu = () => {
+
+    const dispatch = useDispatch()
+
+    const onClickStartGame = () => {
+        dispatch(closeAllCards())
+        dispatch(startGame())
+    }
+
     return (
         <GameMenuContainer>
             <Stats/>
             <SettingsBtn>Settings</SettingsBtn>
-            <SettingsBtn>
+            <SettingsBtn onClick={onClickStartGame}>
                 New Game
             </SettingsBtn>
 

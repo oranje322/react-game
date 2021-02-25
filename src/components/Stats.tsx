@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
+import {useSelector} from "react-redux";
+import {IState} from "../types/reducerTypes";
 
 const StatsContainer = styled.div`
     display: flex;
@@ -15,11 +17,14 @@ const Text = styled.p`
 
 
 const Stats = () => {
+
+    const count = useSelector((state:IState) => state.count)
+
     return (
         <StatsContainer>
             <Text>Лучший результат: 0</Text>
             <Text>Предыдущий результат: 0</Text>
-            <Text>Текущий результат: 0</Text>
+            <Text>Текущий результат: {count}</Text>
         </StatsContainer>
     );
 };

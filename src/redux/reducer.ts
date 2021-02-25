@@ -1,4 +1,12 @@
-import {CLEAR_FLIPPED_CARDS, CLOSE_ALL_CARDS, FLIP_CARD, SET_CARDS, SET_FLIPPED_CARD} from "./const";
+import {
+    CLEAR_FLIPPED_CARDS,
+    CLOSE_ALL_CARDS,
+    CLOSE_CARD,
+    FLIP_CARD,
+    SET_CARDS,
+    SET_FLIPPED_CARD,
+    START_GAME
+} from "./const";
 import {IState} from "../types/reducerTypes";
 import {AllActionTypes} from "../types/actionsTypes";
 
@@ -23,7 +31,7 @@ const initialState: IState = {
     ],
     gameCards: [],
     flippedCards: [],
-    isStarted: true,
+    isStarted: false,
     isFinished: false,
     currentTry: 0,
     lastTry: 0,
@@ -42,6 +50,12 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
                 isFinished: false
             }
         }
+        case START_GAME: {
+            return {
+                ...state,
+                isStarted: true
+            }
+        }
         case FLIP_CARD: {
             return {
                 ...state,
@@ -49,12 +63,26 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
                     if (card.id === action.payload) {
                         return {
                             ...card,
-                            isFlipped: !card.isFlipped,
+                            isFlipped: true
                         }
                     }
                     return card
                 }),
                 count: state.count +1
+            }
+        }
+        case CLOSE_CARD: {
+            return {
+                ...state,
+                gameCards: state.gameCards.map(card => {
+                    if (card.id === action.payload) {
+                        return {
+                            ...card,
+                            isFlipped: false
+                        }
+                    }
+                    return card
+                })
             }
         }
         case SET_FLIPPED_CARD: {
