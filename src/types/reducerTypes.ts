@@ -20,7 +20,7 @@ export interface IGameCard {
 }
 
 export interface IStat {
-    try: number,
+    attempt: number,
     steps: number,
     gameMode: number
 }

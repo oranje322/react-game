@@ -7,7 +7,7 @@ import {
     SET_FLIPPED_CARD, SET_MODE,
     START_GAME
 } from "../redux/const";
-import {IGameCard} from "./reducerTypes";
+import {IGameCard, IStat} from "./reducerTypes";
 
 
 export interface ISetCards {
@@ -43,7 +43,8 @@ export interface IStartGame {
 }
 
 export interface IFinishGame {
-    type: typeof FINISH_GAME
+    type: typeof FINISH_GAME,
+    payload: IStat
 }
 
 export interface ISetMode {

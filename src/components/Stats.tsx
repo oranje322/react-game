@@ -114,8 +114,8 @@ export const Stats = ({setOpenStats}: IStatsProps) => {
                     <StatsSubtitle>{subtitleNames[selectedGameMode]}</StatsSubtitle>
                     {
                         stat.map(s => selectedGameMode === s.gameMode ? (
-                            <ResultWrapper>
-                                <ResultText>Номер попытки: {s.try}</ResultText><ResultText>Кол-во ходов: {s.steps}</ResultText>
+                            <ResultWrapper key={`s${s.attempt}`}>
+                                <ResultText>Номер попытки: {s.attempt}</ResultText><ResultText>Кол-во ходов: {s.steps}</ResultText>
                             </ResultWrapper>) : ''
                         )
                     }

@@ -68,7 +68,11 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
                         dispatch(clearFlippedCards())
 
                         if(getState().pairsFound === gameMode(getState().gameMode)) {
-                            dispatch(finishGame())
+                            dispatch(finishGame({
+                                attempt: getState().stat.length +1,
+                                steps: getState().count,
+                                gameMode: getState().gameMode
+                            }))
                         }
 
                     } else {

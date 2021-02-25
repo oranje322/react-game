@@ -38,26 +38,7 @@ const initialState: IState = {
     isStarted: false,
     isFinished: false,
     gameMode: 0,
-    stat: [{
-        try: 1,
-        steps: 30,
-        gameMode: 0
-    },
-        {try: 2,
-            steps: 35,
-            gameMode: 0},
-        {
-            try: 3,
-            steps: 66,
-            gameMode: 1
-        },
-        {
-            try: 4,
-            steps: 30,
-            gameMode: 2
-        }
-
-    ],
+    stat: [],
     count: 0
 }
 
@@ -80,14 +61,17 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
             return {
                 ...state,
                 isStarted: true,
-                isFinished: false
+                isFinished: false,
+                count: 0
             }
         }
         case FINISH_GAME: {
             return {
                 ...state,
                 isStarted: false,
-                isFinished: true
+                isFinished: true,
+                pairsFound: 0,
+                stat: [...state.stat, action.payload]
             }
         }
         case PAIRS_FOUND: {
