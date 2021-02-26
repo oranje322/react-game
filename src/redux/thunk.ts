@@ -14,6 +14,7 @@ import {
     setFlippedCard, startGame
 } from "./actions";
 import {Howler} from "howler";
+import {failSound, mainThemeSound, successSound, victorySound} from "../utils/sounds";
 
 
 export const initialThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
@@ -33,15 +34,17 @@ export const initialThunk = (): ThunkAction<void, IState, unknown, AllActionType
 
 
 
-
-
 export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
 
-        dispatch(initialThunk())
+        if(getState().stat.length > 0) {
+            dispatch(initialThunk())
+        }
+
         setTimeout(() => {
             dispatch(closeAllCards())
             dispatch(startGame())
+            mainThemeSound.play()
         }, getState().settings.speed)
     }
 }
@@ -74,11 +77,14 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
                             }
                         })
                             //успешный диспатч
+                        successSound.play()
                         dispatch(pairsFoundAC(getState().pairsFound +1))
                         dispatch(setCards(changedCards))
                         dispatch(clearFlippedCards())
 
                         if(getState().pairsFound === gameMode(getState().settings.gameMode)) {
+                            mainThemeSound.stop()
+                            victorySound.play()
                             dispatch(finishGame({
                                 attempt: getState().stat.length +1,
                                 steps: getState().count,
@@ -88,6 +94,7 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
 
                     } else {
                         //провальный диспатч
+                        failSound.play()
                         dispatch(closeCard(getState().flippedCards[0].id))
                         dispatch(closeCard(getState().flippedCards[1].id))
                         dispatch(clearFlippedCards())
