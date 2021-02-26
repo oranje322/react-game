@@ -4,6 +4,7 @@ import {ISettingsProps} from "../types/propsTypes";
 import {useDispatch, useSelector} from "react-redux";
 import { setSettings } from "../redux/actions";
 import {IState} from "../types/reducerTypes";
+import {initialThunk} from "../redux/thunk";
 
 
 const SettingsOverlay = styled.div`
@@ -103,6 +104,7 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
             speed,
             showCards
         }))
+        dispatch(initialThunk())
         setOpenSettings(false)
     }
 

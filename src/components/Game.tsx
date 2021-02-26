@@ -5,7 +5,7 @@ import backgroundImg from '../assets/img/background.jpg'
 import {useDispatch, useSelector} from "react-redux";
 import {IGameCard, IState} from "../types/reducerTypes";
 import {flipCard, setCards} from "../redux/actions";
-import {newGameThunk} from "../redux/thunk";
+import {initialThunk, newGameThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
 import { Settings } from './Settings';
 import {Stats} from "./Stats";
@@ -37,7 +37,7 @@ const Game:FC = () => {
 
 
     useEffect(() => {
-        dispatch(newGameThunk())
+        dispatch(initialThunk())
     },[])
 
 

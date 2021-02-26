@@ -42,7 +42,7 @@ const initialState: IState = {
         soundsVolume: 1,
         gameMode: 0,
         speed: 2000,
-        showCards: false,
+        showCards: true,
     },
     stat: [],
     count: 0
