@@ -40,9 +40,6 @@ const Game:FC = () => {
         dispatch(newGameThunk())
     },[])
 
-    // const handleClickCard = (card:IGameCard) => {
-    //     dispatch(flipCard(card.id))
-    // }
 
     return (
         <GameContainer>

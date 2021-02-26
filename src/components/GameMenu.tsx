@@ -5,6 +5,7 @@ import {closeAllCards, startGame} from "../redux/actions";
 import {newGameThunk} from "../redux/thunk";
 import {IGameMenuProps} from "../types/propsTypes";
 import {IState} from "../types/reducerTypes";
+import {Howl, Howler} from 'howler';
 
 const GameMenuContainer = styled.div`
     margin-left: 30px;
@@ -37,12 +38,14 @@ const CounterText = styled.p`
 const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
 
     const dispatch = useDispatch()
-
     const count = useSelector((state:IState) => state.count)
 
 
     const onClickStartGame = () => {
+
+
         dispatch(newGameThunk())
+
     }
 
     return (

@@ -16,20 +16,20 @@ import {
 
 export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
-        let pairCount = gameMode(getState().gameMode)
+        let pairCount = gameMode(getState().settings.gameMode)
 
         let oldCards = shuffleArray(getState().cards).slice(0, pairCount)
         const cards = shuffleArray([...oldCards, ...oldCards]).map((imageUrl, index) => ({
             id: index,
             imageUrl,
-            isFlipped: getState().showCards,
+            isFlipped: getState().settings.showCards,
             pairFound: false
         }))
         dispatch(setCards(cards))
         setTimeout(() => {
             dispatch(closeAllCards())
             dispatch(startGame())
-        }, getState().speed)
+        }, getState().settings.speed)
 
 
     }
@@ -67,11 +67,11 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
                         dispatch(setCards(changedCards))
                         dispatch(clearFlippedCards())
 
-                        if(getState().pairsFound === gameMode(getState().gameMode)) {
+                        if(getState().pairsFound === gameMode(getState().settings.gameMode)) {
                             dispatch(finishGame({
                                 attempt: getState().stat.length +1,
                                 steps: getState().count,
-                                gameMode: getState().gameMode
+                                gameMode: getState().settings.gameMode
                             }))
                         }
 
@@ -83,7 +83,7 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
                     }
 
                 }
-            }, getState().speed)
+            }, getState().settings.speed)
         }
     }
 }

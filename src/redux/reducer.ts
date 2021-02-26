@@ -37,14 +37,18 @@ const initialState: IState = {
     pairsFound: 0,
     isStarted: false,
     isFinished: false,
-    gameMode: 0,
-    speed: 2000,
-    showCards: false,
+    settings: {
+        musicVolume: 1,
+        soundsVolume: 1,
+        gameMode: 0,
+        speed: 2000,
+        showCards: false,
+    },
     stat: [],
     count: 0
 }
 
-const reducer = (state = initialState, action: AllActionTypes):IState => {
+const reducer = (state = initialState, action: AllActionTypes): IState => {
     switch (action.type) {
         case SET_CARDS: {
             return {
@@ -56,9 +60,13 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
         case SET_SETTINGS: {
             return {
                 ...state,
-                gameMode: action.payload.gameMode,
-                speed: action.payload.speed,
-                showCards: action.payload.showCards
+                settings: {
+                    musicVolume: action.payload.musicVolume,
+                    soundsVolume: action.payload.soundsVolume,
+                    gameMode: action.payload.gameMode,
+                    speed: action.payload.speed,
+                    showCards: action.payload.showCards
+                }
             }
         }
         case START_GAME: {
@@ -96,7 +104,7 @@ const reducer = (state = initialState, action: AllActionTypes):IState => {
                     }
                     return card
                 }),
-                count: state.count +1
+                count: state.count + 1
             }
         }
         case CLOSE_CARD: {

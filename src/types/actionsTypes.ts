@@ -7,7 +7,7 @@ import {
     SET_FLIPPED_CARD, SET_SETTINGS,
     START_GAME
 } from "../redux/const";
-import {IGameCard, IStat} from "./reducerTypes";
+import {IGameCard, ISettings, IStat} from "./reducerTypes";
 
 
 export interface ISetCards {
@@ -52,11 +52,6 @@ export interface ISetSettings {
     payload: ISettings
 }
 
-export interface ISettings {
-    gameMode: number,
-    speed: number,
-    showCards: boolean
-}
 
 export interface IPairsFound {
     type: typeof PAIRS_FOUND,

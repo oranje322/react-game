@@ -5,9 +5,7 @@ export interface IState {
     pairsFound: number,
     isStarted: boolean,
     isFinished: boolean,
-    gameMode: number,
-    speed: number,
-    showCards: boolean,
+    settings: ISettings
     stat: Array<IStat>,
     count: number
 }
@@ -25,6 +23,14 @@ export interface IStat {
     attempt: number,
     steps: number,
     gameMode: number
+}
+
+export interface ISettings {
+    musicVolume: number,
+    soundsVolume: number,
+    gameMode: number,
+    speed: number,
+    showCards: boolean,
 }
 
 

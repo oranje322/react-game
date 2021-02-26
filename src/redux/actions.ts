@@ -8,7 +8,6 @@ import {
     ISetCards,
     ISetFlippedCard,
     ISetSettings,
-    ISettings,
     IStartGame
 } from "../types/actionsTypes";
 import {
@@ -23,7 +22,7 @@ import {
     SET_SETTINGS,
     START_GAME
 } from "./const";
-import {IGameCard, IStat} from "../types/reducerTypes";
+import {IGameCard, ISettings, IStat} from "../types/reducerTypes";
 
 
 export const setCards = (payload:IGameCard[]):ISetCards => ({type: SET_CARDS, payload})

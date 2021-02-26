@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {ISettingsProps} from "../types/propsTypes";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { setSettings } from "../redux/actions";
+import {IState} from "../types/reducerTypes";
 
 
 const SettingsOverlay = styled.div`
@@ -83,21 +84,27 @@ const Button = styled.button`
 
 export const Settings = ({setOpenSettings}:ISettingsProps) => {
 
-    const [gameMode, setGameMode] = useState(0)
-    const [speed, setSpeed] = useState(3000)
-    const [showCards, setShowCards] = useState(false)
+    const settings = useSelector((state:IState) => state.settings)
+
+    const [gameMode, setGameMode] = useState(settings.gameMode)
+    const [speed, setSpeed] = useState(settings.speed)
+    const [showCards, setShowCards] = useState(settings.showCards)
+    const [musicVolume, setMusicVolume] = useState(settings.musicVolume)
+    const [soundsVolume, setSoundsVolume] = useState(settings.soundsVolume)
+
 
     const dispatch = useDispatch()
 
     const onClickSaveSettings = () => {
         dispatch(setSettings({
+            musicVolume,
+            soundsVolume,
             gameMode,
             speed,
             showCards
         }))
         setOpenSettings(false)
     }
-
 
     return (
         <SettingsOverlay>
@@ -106,13 +113,15 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
                 <InputWrapper>
                     <Label>Music Volume:</Label>
                     <InputRange
-                        value={0}
+                        value={musicVolume * 100}
+                        onChange={(e) => setMusicVolume(Number(e.target.value) / 100)}
                     />
                 </InputWrapper>
                 <InputWrapper>
                     <Label>Sounds Volume:</Label>
                     <InputRange
-                        value={0}
+                        value={soundsVolume * 100}
+                        onChange={(e) => setSoundsVolume(Number(e.target.value) / 100)}
                     />
                 </InputWrapper>
                 <InputWrapper>
