@@ -13,9 +13,11 @@ import {
     setCards,
     setFlippedCard, startGame
 } from "./actions";
+import {Howler} from "howler";
 
 export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
+
         let pairCount = gameMode(getState().settings.gameMode)
 
         let oldCards = shuffleArray(getState().cards).slice(0, pairCount)
