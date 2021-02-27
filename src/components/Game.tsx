@@ -7,9 +7,10 @@ import {IGameCard, IState} from "../types/reducerTypes";
 import {flipCard, setCards} from "../redux/actions";
 import {initialThunk, newGameThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
-import { Settings } from './Settings';
+import {Settings} from './Settings';
 import {Stats} from "./Stats";
-import { useRef } from 'react';
+import {useRef} from 'react';
+import Footer from './Footer';
 
 const GameContainer = styled.div`
     display: flex;
@@ -27,8 +28,14 @@ const CardGrid = styled.div`
   grid-row-gap: 5px;
 `;
 
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
 
-const Game:FC = () => {
+
+
+const Game: FC = () => {
     const cards = useSelector((state: IState) => state.gameCards)
     const dispatch = useDispatch()
 
@@ -36,32 +43,33 @@ const Game:FC = () => {
     const [openStats, setOpenStats] = useState(false)
 
 
-
     useEffect(() => {
         dispatch(initialThunk())
-    },[])
+    }, [])
 
     return (
-        <GameContainer>
-            <CardGrid>
+        <Wrapper>
+            <GameContainer>
+                <CardGrid>
+                    {
+                        cards.map((card, index) => <Card card={card}
+                                                         key={`card${index}`}/>)
+                    }
+                </CardGrid>
+                <GameMenu setOpenSettings={setOpenSettings}
+                          setOpenStats={setOpenStats}/>
                 {
-                    cards.map((card, index) => <Card card={card}
-                                                     // handleClickCard={handleClickCard}
-                                                     key={`card${index}`}/>)
+                    openSettings && <Settings setOpenSettings={setOpenSettings}
+                    />
                 }
-            </CardGrid>
-            <GameMenu setOpenSettings={setOpenSettings}
-                      setOpenStats={setOpenStats}/>
-            {
-                openSettings && <Settings setOpenSettings={setOpenSettings}
-                />
-            }
 
-            {
-                openStats && <Stats setOpenStats={setOpenStats}/>
-            }
+                {
+                    openStats && <Stats setOpenStats={setOpenStats}/>
+                }
 
-        </GameContainer>
+            </GameContainer>
+            <Footer/>
+        </Wrapper>
     );
 };
 

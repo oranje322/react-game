@@ -7,7 +7,8 @@ import {useDispatch} from "react-redux";
 import {flipCardThunk} from "../redux/thunk";
 
 const CardContainer = styled.div`
-  height: 140px;
+  height: 130px;
+  width: 102px;
   margin: 5px;
   position: relative;
   transform: scale(1);
@@ -49,7 +50,6 @@ const Card = ({card}: ICardProps) => {
     const onClickCard = () => {
         dispatch(flipCardThunk(card))
     }
-
 
     return (
         <CardContainer onClick={onClickCard} className={`${isFlipped ? 'flip' : ''} ${pairFound ? 'disable' : ''}`}>
