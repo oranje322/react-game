@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import {ISettingsProps} from "../types/propsTypes";
 import {useDispatch, useSelector} from "react-redux";
-import { setSettings } from "../redux/actions";
 import {IState} from "../types/reducerTypes";
-import {initialThunk} from "../redux/thunk";
+import {initialThunk, settingsThunk} from "../redux/thunk";
 
 
 const SettingsOverlay = styled.div`
@@ -86,6 +85,7 @@ const Button = styled.button`
 export const Settings = ({setOpenSettings}:ISettingsProps) => {
 
     const settings = useSelector((state:IState) => state.settings)
+    const isStarted = useSelector((state:IState) => state.isStarted)
 
     const [gameMode, setGameMode] = useState(settings.gameMode)
     const [speed, setSpeed] = useState(settings.speed)
@@ -97,14 +97,17 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
     const dispatch = useDispatch()
 
     const onClickSaveSettings = () => {
-        dispatch(setSettings({
+        dispatch(settingsThunk({
             musicVolume,
             soundsVolume,
             gameMode,
             speed,
             showCards
         }))
-        dispatch(initialThunk())
+
+        if(!isStarted) {
+            dispatch(initialThunk())
+        }
         setOpenSettings(false)
     }
 

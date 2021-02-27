@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk";
 import {AllActionTypes} from "../types/actionsTypes";
-import {IGameCard, IState} from "../types/reducerTypes";
-import { gameMode } from "../utils/gameMode";
+import {IGameCard, ISettings, IState} from "../types/reducerTypes";
+import {gameMode} from "../utils/gameMode";
 import {shuffleArray} from "../utils/shuffleArray";
 import {
     clearFlippedCards,
@@ -11,7 +11,7 @@ import {
     flipCard,
     pairsFoundAC,
     setCards,
-    setFlippedCard, startGame
+    setFlippedCard, setSettings, startGame
 } from "./actions";
 import {Howler} from "howler";
 import {failSound, mainThemeSound, successSound, victorySound} from "../utils/sounds";
@@ -33,11 +33,10 @@ export const initialThunk = (): ThunkAction<void, IState, unknown, AllActionType
 }
 
 
-
 export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
 
-        if(getState().stat.length > 0) {
+        if (getState().stat.length > 0) {
             dispatch(initialThunk())
         }
 
@@ -76,22 +75,21 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
                                 return card
                             }
                         })
-                            //успешный диспатч
+                        //успешный диспатч
                         successSound.play()
-                        dispatch(pairsFoundAC(getState().pairsFound +1))
+                        dispatch(pairsFoundAC(getState().pairsFound + 1))
                         dispatch(setCards(changedCards))
                         dispatch(clearFlippedCards())
 
-                        if(getState().pairsFound === gameMode(getState().settings.gameMode)) {
+                        if (getState().pairsFound === gameMode(getState().settings.gameMode)) {
                             mainThemeSound.stop()
                             victorySound.play()
                             dispatch(finishGame({
-                                attempt: getState().stat.length +1,
+                                attempt: getState().stat.length + 1,
                                 steps: getState().count,
                                 gameMode: getState().settings.gameMode
                             }))
                         }
-
                     } else {
                         //провальный диспатч
                         failSound.play()
@@ -99,9 +97,21 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
                         dispatch(closeCard(getState().flippedCards[1].id))
                         dispatch(clearFlippedCards())
                     }
-
                 }
             }, getState().settings.speed)
         }
+    }
+}
+
+export const settingsThunk = (settings: ISettings): ThunkAction<void, IState, unknown, AllActionTypes> => {
+    return (dispatch, getState) => {
+
+        //volume
+        mainThemeSound.volume(settings.musicVolume)
+        victorySound.volume(settings.soundsVolume)
+        failSound.volume(settings.soundsVolume)
+        successSound.volume(settings.soundsVolume)
+
+        dispatch(setSettings(settings))
     }
 }
