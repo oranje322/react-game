@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import styled from "styled-components";
 import {ISettingsProps, IStatsProps} from "../types/propsTypes";
 import {useSelector} from "react-redux";
@@ -97,10 +97,18 @@ export const Stats = ({setOpenStats}: IStatsProps) => {
     const [selectedGameMode, setSelectedGameMode] = useState(0)
     const stat = useSelector((state: IState) => state.stat)
 
+    const ref = useRef<HTMLDivElement>(null)
+
+    const handleClickOutside = (e:any) => {
+        if(!ref?.current?.contains(e.target)) {
+            setOpenStats(false)
+        }
+    }
+
 
     return (
-        <SettingsOverlay>
-            <SettingsWrapper>
+        <SettingsOverlay onClick={handleClickOutside}>
+            <SettingsWrapper ref={ref}>
                 <SettingsTitle>Stats</SettingsTitle>
                 <InputWrapper>
                     <Label>Game Mode</Label>

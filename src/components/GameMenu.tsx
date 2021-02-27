@@ -54,8 +54,6 @@ const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
 
     const onClickMute = () => {
 
-        console.log(muteSound)
-
         if(!muteSound) {
             mute(true)
         } else {

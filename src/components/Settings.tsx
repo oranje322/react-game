@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import styled from "styled-components";
 import {ISettingsProps} from "../types/propsTypes";
 import {useDispatch, useSelector} from "react-redux";
@@ -82,6 +82,7 @@ const Button = styled.button`
 
 `;
 
+
 export const Settings = ({setOpenSettings}:ISettingsProps) => {
 
     const settings = useSelector((state:IState) => state.settings)
@@ -95,6 +96,8 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
 
 
     const dispatch = useDispatch()
+
+    const ref = useRef<HTMLDivElement>(null)
 
     const onClickSaveSettings = () => {
         dispatch(settingsThunk({
@@ -111,9 +114,19 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
         setOpenSettings(false)
     }
 
+    const onClickCloseSettings = () => {
+
+    }
+
+    const handleClickOutside = (e:any) => {
+        if(!ref?.current?.contains(e.target)) {
+            setOpenSettings(false)
+        }
+    }
+
     return (
-        <SettingsOverlay>
-            <SettingsWrapper>
+        <SettingsOverlay onClick={handleClickOutside}>
+            <SettingsWrapper ref={ref}>
                 <SettingsTitle>Settings</SettingsTitle>
                 <InputWrapper>
                     <Label>Music Volume:</Label>
