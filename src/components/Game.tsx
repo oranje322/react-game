@@ -56,6 +56,14 @@ const Game: FC = () => {
         dispatch(initialThunk())
     }, [])
 
+    //todo оповещение об окончании игры
+    //todo улучшить интефрейс статы
+    //todo добавить хоткеи
+    //todo добавить страницу about
+    //todo звук фейла
+    //todo автоплей
+
+
     return (
         <Wrapper>
             <GameContainer>

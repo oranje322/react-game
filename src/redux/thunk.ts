@@ -53,54 +53,61 @@ export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionType
 export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
         if (getState().isStarted) {
-            if (getState().flippedCards.length < 2) {
+
+            if(getState().flippedCards.length === 0) {
+                dispatch(flipCard(card.id))
+                dispatch(setFlippedCard(card))
+            }
+
+            if(getState().flippedCards.length === 1) {
+                //чтобы не было даблаклика по карте и зачета
                 if (getState().flippedCards[0]?.id !== card.id) {
                     dispatch(flipCard(card.id))
                     dispatch(setFlippedCard(card))
-                }
 
-            }
+                    setTimeout(() => {
+                        if (getState().flippedCards.length === 2) {
+                            //если имена карт совпали, диспатчим эту пару с флагом pairFround=true
+                            if (getState().flippedCards[0].imageUrl === getState().flippedCards[1].imageUrl) {
+                                let changedCards = getState().gameCards.map(card => {
+                                    if (card.imageUrl === getState().flippedCards[0].imageUrl) {
+                                        return {
+                                            id: card.id,
+                                            imageUrl: card.imageUrl,
+                                            isFlipped: true,
+                                            pairFound: true
+                                        }
+                                    } else {
+                                        return card
+                                    }
+                                })
+                                //успешный диспатч
+                                successSound.play()
+                                dispatch(pairsFoundAC(getState().pairsFound + 1))
+                                dispatch(setCards(changedCards))
+                                dispatch(clearFlippedCards())
 
-            setTimeout(() => {
-                if (getState().flippedCards.length === 2) {
-                    //если имена карт совпали, диспатчим эту пару с флагом pairFround=true
-                    if (getState().flippedCards[0].imageUrl === getState().flippedCards[1].imageUrl) {
-                        let changedCards = getState().gameCards.map(card => {
-                            if (card.imageUrl === getState().flippedCards[0].imageUrl) {
-                                return {
-                                    id: card.id,
-                                    imageUrl: card.imageUrl,
-                                    isFlipped: true,
-                                    pairFound: true
+                                if (getState().pairsFound === gameMode(getState().settings.gameMode)) {
+                                    mainThemeSound.stop()
+                                    victorySound.play()
+                                    dispatch(finishGame({
+                                        attempt: getState().stat.length + 1,
+                                        steps: getState().count,
+                                        gameMode: getState().settings.gameMode
+                                    }))
                                 }
                             } else {
-                                return card
+                                //провальный диспатч
+                                failSound.play()
+                                dispatch(closeCard(getState().flippedCards[0].id))
+                                dispatch(closeCard(getState().flippedCards[1].id))
+                                dispatch(clearFlippedCards())
                             }
-                        })
-                        //успешный диспатч
-                        successSound.play()
-                        dispatch(pairsFoundAC(getState().pairsFound + 1))
-                        dispatch(setCards(changedCards))
-                        dispatch(clearFlippedCards())
-
-                        if (getState().pairsFound === gameMode(getState().settings.gameMode)) {
-                            mainThemeSound.stop()
-                            victorySound.play()
-                            dispatch(finishGame({
-                                attempt: getState().stat.length + 1,
-                                steps: getState().count,
-                                gameMode: getState().settings.gameMode
-                            }))
                         }
-                    } else {
-                        //провальный диспатч
-                        failSound.play()
-                        dispatch(closeCard(getState().flippedCards[0].id))
-                        dispatch(closeCard(getState().flippedCards[1].id))
-                        dispatch(clearFlippedCards())
-                    }
+                    }, getState().settings.speed)
+
                 }
-            }, getState().settings.speed)
+            }
         }
     }
 }
