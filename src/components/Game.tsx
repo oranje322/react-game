@@ -20,18 +20,26 @@ const GameContainer = styled.div`
 
 const CardGrid = styled.div`
   width: 700px;
+  min-height: 95vh;
   perspective: 700px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 140px);
   grid-column-gap: 5px;
   grid-row-gap: 5px;
+  
+  @media(max-width: 940px) {
+      max-width: 400px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(12, 1fr)
+  }
 `;
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 `;
 
 
