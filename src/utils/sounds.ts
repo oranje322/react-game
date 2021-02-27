@@ -20,3 +20,10 @@ export const failSound = new Howl({
     src: '/mp3/fail.mp3',
     volume: 1
 })
+
+export const mute = (value:boolean) => {
+    mainThemeSound.mute(value)
+    victorySound.mute(value)
+    failSound.mute(value)
+    successSound.mute(value)
+}

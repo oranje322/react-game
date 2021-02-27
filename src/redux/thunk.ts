@@ -36,6 +36,8 @@ export const initialThunk = (): ThunkAction<void, IState, unknown, AllActionType
 export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
 
+        mainThemeSound.stop()
+
         if (getState().stat.length > 0) {
             dispatch(initialThunk())
         }
@@ -115,3 +117,4 @@ export const settingsThunk = (settings: ISettings): ThunkAction<void, IState, un
         dispatch(setSettings(settings))
     }
 }
+

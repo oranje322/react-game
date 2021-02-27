@@ -1,11 +1,10 @@
-import React, {useRef} from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {closeAllCards, startGame} from "../redux/actions";
 import {newGameThunk} from "../redux/thunk";
 import {IGameMenuProps} from "../types/propsTypes";
 import {IState} from "../types/reducerTypes";
-import {Howl, Howler} from 'howler';
+import {mute} from "../utils/sounds";
 
 const GameMenuContainer = styled.div`
     margin-left: 30px;
@@ -40,16 +39,29 @@ const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
     const dispatch = useDispatch()
     const count = useSelector((state:IState) => state.count)
 
+    const [muteSound, setMuteSound] = useState(false)
+
 
     const onClickStartGame = () => {
 
         dispatch(newGameThunk())
     }
 
-
-
     const onClickFullScreen = () => {
         document.documentElement.requestFullscreen()
+    }
+
+
+    const onClickMute = () => {
+
+        console.log(muteSound)
+
+        if(!muteSound) {
+            mute(true)
+        } else {
+            mute(false)
+        }
+        setMuteSound((prev) => !prev)
     }
 
     return (
@@ -63,6 +75,9 @@ const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
             </MenuBtn>
             <MenuBtn onClick={onClickFullScreen}>
                 Full Screen
+            </MenuBtn>
+            <MenuBtn onClick={onClickMute}>
+                {muteSound ? 'Unmute' : 'Mute' }
             </MenuBtn>
             <MenuBtn onClick={onClickStartGame}>
                 New Game
