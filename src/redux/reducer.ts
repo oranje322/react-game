@@ -89,7 +89,7 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
         case PAIRS_FOUND: {
             return {
                 ...state,
-                pairsFound: action.payload
+                pairsFound: action.payload,
             }
         }
         case FLIP_CARD: {
@@ -104,7 +104,6 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
                     }
                     return card
                 }),
-                count: state.count + 1
             }
         }
         case CLOSE_CARD: {
@@ -130,7 +129,8 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
         case CLEAR_FLIPPED_CARDS: {
             return {
                 ...state,
-                flippedCards: []
+                flippedCards: [],
+                count: state.count +1
             }
         }
         case CLOSE_ALL_CARDS:
