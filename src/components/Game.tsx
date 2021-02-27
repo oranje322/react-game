@@ -9,6 +9,7 @@ import {initialThunk, newGameThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
 import { Settings } from './Settings';
 import {Stats} from "./Stats";
+import { useRef } from 'react';
 
 const GameContainer = styled.div`
     display: flex;
@@ -39,7 +40,6 @@ const Game:FC = () => {
     useEffect(() => {
         dispatch(initialThunk())
     },[])
-
 
     return (
         <GameContainer>

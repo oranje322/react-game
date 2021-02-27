@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {closeAllCards, startGame} from "../redux/actions";
@@ -14,7 +14,7 @@ const GameMenuContainer = styled.div`
    
 `;
 
-const SettingsBtn = styled.button`
+const MenuBtn = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
@@ -43,23 +43,30 @@ const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
 
     const onClickStartGame = () => {
 
-
         dispatch(newGameThunk())
+    }
 
+
+
+    const onClickFullScreen = () => {
+        document.documentElement.requestFullscreen()
     }
 
     return (
         <GameMenuContainer>
             <CounterText>Current steps: {count}</CounterText>
-            <SettingsBtn onClick={() => setOpenStats(true)}>
+            <MenuBtn onClick={() => setOpenStats(true)}>
                 Stats
-            </SettingsBtn>
-            <SettingsBtn onClick={()=> setOpenSettings(true)}>
+            </MenuBtn>
+            <MenuBtn onClick={()=> setOpenSettings(true)}>
                 Settings
-            </SettingsBtn>
-            <SettingsBtn onClick={onClickStartGame}>
+            </MenuBtn>
+            <MenuBtn onClick={onClickFullScreen}>
+                Full Screen
+            </MenuBtn>
+            <MenuBtn onClick={onClickStartGame}>
                 New Game
-            </SettingsBtn>
+            </MenuBtn>
 
         </GameMenuContainer>
     );
