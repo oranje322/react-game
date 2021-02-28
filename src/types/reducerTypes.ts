@@ -22,7 +22,8 @@ export interface IGameCard {
 export interface IStat {
     attempt: number,
     steps: number,
-    gameMode: number
+    gameMode: number,
+    date: string
 }
 
 export interface ISettings {

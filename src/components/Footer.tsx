@@ -4,7 +4,7 @@ import styled from "styled-components";
 const FooterContainer = styled.div`
     position: absolute;
     bottom: 0;
-    left: 45%;
+    left: 43%;
     display: flex;
     justify-content: center;
     color: #fff;
@@ -13,7 +13,7 @@ const FooterContainer = styled.div`
     
     @media(max-width: 940px) {
         left: 30%;
-   
+  
     }
 `;
 

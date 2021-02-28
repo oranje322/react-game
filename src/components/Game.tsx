@@ -11,6 +11,7 @@ import {Settings} from './Settings';
 import {Stats} from "./Stats";
 import {useRef} from 'react';
 import Footer from './Footer';
+import FinishGame from "./finishGame";
 
 const GameContainer = styled.div`
     display: flex;
@@ -46,6 +47,7 @@ const Wrapper = styled.div`
 
 const Game: FC = () => {
     const cards = useSelector((state: IState) => state.gameCards)
+    const isFinished = useSelector((state:IState) => state.isFinished)
     const dispatch = useDispatch()
 
     const [openSettings, setOpenSettings] = useState(false)
@@ -56,7 +58,6 @@ const Game: FC = () => {
         dispatch(initialThunk())
     }, [])
 
-    //todo оповещение об окончании игры
     //todo улучшить интефрейс статы
     //todo добавить хоткеи
     //todo добавить страницу about
@@ -67,14 +68,24 @@ const Game: FC = () => {
     return (
         <Wrapper>
             <GameContainer>
-                <CardGrid>
-                    {
-                        cards.map((card, index) => <Card card={card}
-                                                         key={`card${index}`}/>)
-                    }
-                </CardGrid>
-                <GameMenu setOpenSettings={setOpenSettings}
-                          setOpenStats={setOpenStats}/>
+
+                {
+                    !isFinished ?  <CardGrid>
+                        {
+                            cards.map((card, index) => <Card card={card}
+                                                             key={`card${index}`}/>)
+                        }
+                    </CardGrid> : <FinishGame/>
+
+
+                }
+
+                {
+                    !isFinished ?  <GameMenu setOpenSettings={setOpenSettings}
+                                            setOpenStats={setOpenStats}/> : ''
+                }
+
+
                 {
                     openSettings && <Settings setOpenSettings={setOpenSettings}
                     />

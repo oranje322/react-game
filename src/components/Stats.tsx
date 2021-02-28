@@ -121,16 +121,13 @@ export const Stats = ({setOpenStats}: IStatsProps) => {
                 <div>
                     <StatsSubtitle>{subtitleNames[selectedGameMode]}</StatsSubtitle>
                     {
-                        stat.map(s => selectedGameMode === s.gameMode ? (
-                            <ResultWrapper key={`s${s.attempt}`}>
+                        stat.map((s, index) => selectedGameMode === s.gameMode ? (
+                            <ResultWrapper key={index}>
                                 <ResultText>Номер попытки: {s.attempt}</ResultText><ResultText>Кол-во ходов: {s.steps}</ResultText>
                             </ResultWrapper>) : ''
                         )
                     }
-
                 </div>
-
-
                 <ButtonsWrapper>
                     <Button onClick={() => setOpenStats(false)}>Close</Button>
                 </ButtonsWrapper>

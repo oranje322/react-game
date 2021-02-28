@@ -93,7 +93,8 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
                                     dispatch(finishGame({
                                         attempt: getState().stat.length + 1,
                                         steps: getState().count,
-                                        gameMode: getState().settings.gameMode
+                                        gameMode: getState().settings.gameMode,
+                                        date: new Date().toLocaleString()
                                     }))
                                 }
                             } else {

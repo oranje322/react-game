@@ -79,7 +79,6 @@ const Button = styled.button`
   font-size: 18px;
   max-width: 120px;
   color: #fff;
-
 `;
 
 
