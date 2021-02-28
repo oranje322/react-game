@@ -4,6 +4,7 @@ import {
     CLOSE_CARD,
     FINISH_GAME,
     FLIP_CARD,
+    MUTE_SOUND,
     PAIRS_FOUND,
     SET_CARDS,
     SET_FLIPPED_CARD,
@@ -43,9 +44,17 @@ const initialState: IState = {
         gameMode: 0,
         speed: 2000,
         showCards: true,
+        keys: {
+            muteKey: 'm',
+            autoplayKey: 'a',
+            fullscreenKey: 'f',
+            newGameKey: 'n',
+            statsKey: 's',
+        },
     },
     stat: [],
-    count: 0
+    count: 0,
+    muteSound: false,
 }
 
 const reducer = (state = initialState, action: AllActionTypes): IState => {
@@ -65,7 +74,10 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
                     soundsVolume: action.payload.soundsVolume,
                     gameMode: action.payload.gameMode,
                     speed: action.payload.speed,
-                    showCards: action.payload.showCards
+                    showCards: action.payload.showCards,
+                    keys: {
+                        ...action.payload.keys
+                    }
                 }
             }
         }
@@ -143,6 +155,12 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
                     }
                 })
             }
+        case MUTE_SOUND: {
+            return {
+                ...state,
+                muteSound: !state.muteSound
+            }
+        }
         default:
             return {
                 ...state

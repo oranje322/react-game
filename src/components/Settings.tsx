@@ -104,7 +104,14 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
             soundsVolume,
             gameMode,
             speed,
-            showCards
+            showCards,
+            keys: {
+                muteKey: 'm',
+                autoplayKey: 'a',
+                fullscreenKey: 'f',
+                newGameKey: 'n',
+                statsKey: 's',
+            }
         }))
 
         if(!isStarted) {
@@ -113,9 +120,6 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
         setOpenSettings(false)
     }
 
-    const onClickCloseSettings = () => {
-
-    }
 
     const handleClickOutside = (e:any) => {
         if(!ref?.current?.contains(e.target)) {

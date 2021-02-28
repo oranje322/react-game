@@ -4,6 +4,7 @@ import {
     ICloseCard,
     IFinishGame,
     IFlipCard,
+    IMuteSound,
     IPairsFound,
     ISetCards,
     ISetFlippedCard,
@@ -16,6 +17,7 @@ import {
     CLOSE_CARD,
     FINISH_GAME,
     FLIP_CARD,
+    MUTE_SOUND,
     PAIRS_FOUND,
     SET_CARDS,
     SET_FLIPPED_CARD,
@@ -35,3 +37,4 @@ export const startGame = ():IStartGame => ({type: START_GAME})
 export const finishGame = (payload:IStat):IFinishGame => ({type: FINISH_GAME, payload})
 export const setSettings = (payload:ISettings):ISetSettings => ({type: SET_SETTINGS, payload})
 export const pairsFoundAC = (payload:number):IPairsFound => ({type: PAIRS_FOUND, payload})
+export const muteSoundAC = ():IMuteSound => ({type: MUTE_SOUND})

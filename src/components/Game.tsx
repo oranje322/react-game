@@ -4,7 +4,7 @@ import Card from "./Card";
 import backgroundImg from '../assets/img/background.jpg'
 import {useDispatch, useSelector} from "react-redux";
 import {IGameCard, IState} from "../types/reducerTypes";
-import {flipCard, setCards} from "../redux/actions";
+import {flipCard, muteSoundAC, setCards} from "../redux/actions";
 import {initialThunk, newGameThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
 import {Settings} from './Settings';
@@ -12,6 +12,7 @@ import {Stats} from "./Stats";
 import {useRef} from 'react';
 import Footer from './Footer';
 import FinishGame from "./FinishGame";
+import {mute} from "../utils/sounds";
 
 const GameContainer = styled.div`
     display: flex;
@@ -41,6 +42,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    
+    :focus {
+       outline: none;
+   }
 `;
 
 
@@ -48,6 +53,7 @@ const Wrapper = styled.div`
 const Game: FC = () => {
     const cards = useSelector((state: IState) => state.gameCards)
     const isFinished = useSelector((state:IState) => state.isFinished)
+    const muteSound = useSelector((state:IState) => state.muteSound)
     const dispatch = useDispatch()
 
     const [openSettings, setOpenSettings] = useState(false)
@@ -58,7 +64,23 @@ const Game: FC = () => {
         dispatch(initialThunk())
     }, [])
 
-    //todo улучшить интефрейс статы
+    const handleKeyDown = (e:React.KeyboardEvent) => {
+        if(e.key === 'm' || e.key === 'ь') {
+            mute(!muteSound)
+            dispatch(muteSoundAC())
+        }
+        if(e.key === 'f' || e.key === 'а') {
+            document.documentElement.requestFullscreen()
+        }
+        if(e.key === 'n' || e.key === 'т') {
+            dispatch(newGameThunk())
+        }
+        if(e.key === 's' || e.key === 'ы') {
+            setOpenStats(prev => !prev)
+        }
+
+    }
+
     //todo добавить хоткеи
     //todo добавить страницу about
     //todo звук фейла
@@ -66,7 +88,7 @@ const Game: FC = () => {
 
 
     return (
-        <Wrapper>
+        <Wrapper tabIndex={0} onKeyDown={(e) => handleKeyDown(e)}>
             <GameContainer>
 
                 {

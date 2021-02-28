@@ -5,6 +5,7 @@ import {newGameThunk} from "../redux/thunk";
 import {IGameMenuProps} from "../types/propsTypes";
 import {IState} from "../types/reducerTypes";
 import {mute} from "../utils/sounds";
+import {muteSoundAC} from "../redux/actions";
 
 const GameMenuContainer = styled.div`
     margin-left: 30px;
@@ -38,8 +39,9 @@ const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
 
     const dispatch = useDispatch()
     const count = useSelector((state:IState) => state.count)
+    const muteSound = useSelector((state:IState) => state.muteSound)
 
-    const [muteSound, setMuteSound] = useState(false)
+
 
 
     const onClickStartGame = () => {
@@ -59,7 +61,7 @@ const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
         } else {
             mute(false)
         }
-        setMuteSound((prev) => !prev)
+        dispatch(muteSoundAC())
     }
 
     return (

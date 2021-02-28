@@ -2,7 +2,7 @@ import {
     CLEAR_FLIPPED_CARDS,
     CLOSE_ALL_CARDS,
     CLOSE_CARD, FINISH_GAME,
-    FLIP_CARD, PAIRS_FOUND,
+    FLIP_CARD, MUTE_SOUND, PAIRS_FOUND,
     SET_CARDS,
     SET_FLIPPED_CARD, SET_SETTINGS,
     START_GAME
@@ -58,8 +58,12 @@ export interface IPairsFound {
     payload: number
 }
 
+export interface IMuteSound {
+    type: typeof MUTE_SOUND
+}
+
 
 
 export type AllActionTypes = ISetCards | IFlipCard | ICloseAllCards |
     ISetFlippedCard | IClearFlippedCards | IStartGame | ICloseCard |
-    ISetSettings | IFinishGame | IPairsFound
+    ISetSettings | IFinishGame | IPairsFound | IMuteSound

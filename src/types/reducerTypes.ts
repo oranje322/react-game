@@ -7,7 +7,8 @@ export interface IState {
     isFinished: boolean,
     settings: ISettings
     stat: Array<IStat>,
-    count: number
+    count: number,
+    muteSound: boolean
 }
 
 export type CardType = string
@@ -32,6 +33,15 @@ export interface ISettings {
     gameMode: number,
     speed: number,
     showCards: boolean,
+    keys: IKeys
+}
+
+interface IKeys {
+    muteKey: string
+    autoplayKey: string
+    fullscreenKey: string,
+    newGameKey: string,
+    statsKey: string
 }
 
 
