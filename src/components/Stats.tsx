@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {IState} from "../types/reducerTypes";
 
 
-const SettingsOverlay = styled.div`
+const StatsOverlay = styled.div`
     position: fixed;
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@ const SettingsOverlay = styled.div`
     display: flex;
 `;
 
-const SettingsWrapper = styled.div`
+const StatsWrapper = styled.div`
     width: 500px;
     background-color: #fff;
     margin: auto;
@@ -23,7 +23,7 @@ const SettingsWrapper = styled.div`
     border-radius: 3px;
 `;
 
-const SettingsTitle = styled.h2`
+const StatsTitle = styled.h2`
     text-align: center;
     padding-bottom: 10px;
     margin-top: 10px;
@@ -51,6 +51,11 @@ const InputWrapper = styled.div`
     align-items: center;
 `;
 
+const GameModeWrapper = styled.div`
+    max-height: 60vh;
+    overflow: auto;
+    `;
+
 
 const Label = styled.span`
     font-size: 18px;
@@ -66,14 +71,25 @@ const Select = styled.select`
     width: 100px;
 `;
 
-const ResultWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
+const Table = styled.table`
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+    color: black;
 `;
 
-const ResultText = styled.p`
-    margin: 8px 10px;
-    font-size: 16px;
+const Tr = styled.tr`
+    display: flex;
+`;
+
+const Th = styled.th`
+    padding: 5px;
+    flex: 1 1;
+`;
+
+const Td = styled.td`
+  padding: 5px;
+  flex: 1 1;
 `;
 
 const Button = styled.button`
@@ -99,17 +115,16 @@ export const Stats = ({setOpenStats}: IStatsProps) => {
 
     const ref = useRef<HTMLDivElement>(null)
 
-    const handleClickOutside = (e:any) => {
-        if(!ref?.current?.contains(e.target)) {
+    const handleClickOutside = (e: any) => {
+        if (!ref?.current?.contains(e.target)) {
             setOpenStats(false)
         }
     }
 
-
     return (
-        <SettingsOverlay onClick={handleClickOutside}>
-            <SettingsWrapper ref={ref}>
-                <SettingsTitle>Stats</SettingsTitle>
+        <StatsOverlay onClick={handleClickOutside}>
+            <StatsWrapper ref={ref}>
+                <StatsTitle>Stats</StatsTitle>
                 <InputWrapper>
                     <Label>Game Mode</Label>
                     <Select value={selectedGameMode} onChange={(e) => setSelectedGameMode(Number(e.target.value))}>
@@ -118,20 +133,35 @@ export const Stats = ({setOpenStats}: IStatsProps) => {
                         <option value="2">Senior</option>
                     </Select>
                 </InputWrapper>
-                <div>
+                <GameModeWrapper>
                     <StatsSubtitle>{subtitleNames[selectedGameMode]}</StatsSubtitle>
                     {
-                        stat.map((s, index) => selectedGameMode === s.gameMode ? (
-                            <ResultWrapper key={index}>
-                                <ResultText>Номер попытки: {s.attempt}</ResultText><ResultText>Кол-во ходов: {s.steps}</ResultText>
-                            </ResultWrapper>) : ''
-                        )
+                        <Table>
+                            <tbody>
+                            <Tr>
+                                <Th>#</Th>
+                                <Th>Steps</Th>
+                                <Th>Mode</Th>
+                                <Th>Date</Th>
+                            </Tr>
+                            {
+                                stat.map((s, index) => selectedGameMode === s.gameMode && (
+                                    <Tr key={index}>
+                                        <Td>{s.attempt}</Td>
+                                        <Td>{s.steps}</Td>
+                                        <Td>{subtitleNames[s.gameMode]}</Td>
+                                        <Td>{s.date}</Td>
+                                    </Tr>
+                                ) )
+                            }
+                            </tbody>
+                        </Table>
                     }
-                </div>
+                </GameModeWrapper>
                 <ButtonsWrapper>
                     <Button onClick={() => setOpenStats(false)}>Close</Button>
                 </ButtonsWrapper>
-            </SettingsWrapper>
-        </SettingsOverlay>
+            </StatsWrapper>
+        </StatsOverlay>
     );
 };

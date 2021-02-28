@@ -11,7 +11,7 @@ import {Settings} from './Settings';
 import {Stats} from "./Stats";
 import {useRef} from 'react';
 import Footer from './Footer';
-import FinishGame from "./finishGame";
+import FinishGame from "./FinishGame";
 
 const GameContainer = styled.div`
     display: flex;
