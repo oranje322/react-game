@@ -54,6 +54,7 @@ const Game: FC = () => {
     const cards = useSelector((state: IState) => state.gameCards)
     const isFinished = useSelector((state:IState) => state.isFinished)
     const muteSound = useSelector((state:IState) => state.muteSound)
+    const keys = useSelector((state:IState) => state.settings.keys)
     const dispatch = useDispatch()
 
     const [openSettings, setOpenSettings] = useState(false)
@@ -65,18 +66,21 @@ const Game: FC = () => {
     }, [])
 
     const handleKeyDown = (e:React.KeyboardEvent) => {
-        if(e.key === 'm' || e.key === 'ь') {
+        if(e.key === keys.muteKey) {
             mute(!muteSound)
             dispatch(muteSoundAC())
         }
-        if(e.key === 'f' || e.key === 'а') {
+        if(e.key === keys.fullscreenKey) {
             document.documentElement.requestFullscreen()
         }
-        if(e.key === 'n' || e.key === 'т') {
+        if(e.key === keys.newGameKey) {
             dispatch(newGameThunk())
         }
-        if(e.key === 's' || e.key === 'ы') {
+        if(e.key === keys.statsKey) {
             setOpenStats(prev => !prev)
+        }
+        if(e.key === keys.settingsKey) {
+            setOpenSettings(prev => !prev)
         }
 
     }

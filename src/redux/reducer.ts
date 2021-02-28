@@ -50,6 +50,7 @@ const initialState: IState = {
             fullscreenKey: 'f',
             newGameKey: 'n',
             statsKey: 's',
+            settingsKey: 'z'
         },
     },
     stat: [],

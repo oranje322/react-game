@@ -4,6 +4,7 @@ import {ISettingsProps} from "../types/propsTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {IState} from "../types/reducerTypes";
 import {initialThunk, settingsThunk} from "../redux/thunk";
+import {HookCallbacks} from "async_hooks";
 
 
 const SettingsOverlay = styled.div`
@@ -81,6 +82,27 @@ const Button = styled.button`
   color: #fff;
 `;
 
+const HotkeyWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #000;
+    padding: 10px;
+    justify-content: center;
+`;
+
+const HotkeyText = styled.span`
+    
+`;
+
+const KeyInput = styled.input`
+    outline: none;
+    border: none;
+    font-weight: bold;
+    width: 30px;
+    font-size: 18px;
+    
+`;
+
 
 export const Settings = ({setOpenSettings}:ISettingsProps) => {
 
@@ -92,6 +114,12 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
     const [showCards, setShowCards] = useState(settings.showCards)
     const [musicVolume, setMusicVolume] = useState(settings.musicVolume)
     const [soundsVolume, setSoundsVolume] = useState(settings.soundsVolume)
+    const [muteSoundKey, setMuteSoundKey] = useState('m')
+    const [autoplayKey, setAutoPlayKey] = useState('a')
+    const [fullscreenKey, setFullscreenKey] = useState('f')
+    const [newGameKey, setNewGameKey] = useState('n')
+    const [statsKey, setStatsKey] = useState('s')
+    const [settingsKey, setSettingsKey] = useState('z')
 
 
     const dispatch = useDispatch()
@@ -106,11 +134,12 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
             speed,
             showCards,
             keys: {
-                muteKey: 'm',
-                autoplayKey: 'a',
-                fullscreenKey: 'f',
-                newGameKey: 'n',
-                statsKey: 's',
+                muteKey: muteSoundKey,
+                autoplayKey: autoplayKey,
+                fullscreenKey: fullscreenKey,
+                newGameKey: newGameKey,
+                statsKey: statsKey,
+                settingsKey: settingsKey
             }
         }))
 
@@ -120,10 +149,33 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
         setOpenSettings(false)
     }
 
+    console.log(muteSoundKey)
+
 
     const handleClickOutside = (e:any) => {
         if(!ref?.current?.contains(e.target)) {
             setOpenSettings(false)
+        }
+    }
+
+    const handleChangeHotkeys = (value: string, field:string) => {
+        if(field === 'mute') {
+            setMuteSoundKey(value.substr(-1))
+        }
+        if(field === 'autoplay') {
+            setAutoPlayKey(value.substr(-1))
+        }
+        if(field === 'fullscreen') {
+            setFullscreenKey(value.substr(-1))
+        }
+        if(field === 'newgame') {
+            setNewGameKey(value.substr(-1))
+        }
+        if (field === 'stats') {
+            setStatsKey(value.substr(-1))
+        }
+        if (field === 'settings') {
+            setSettingsKey((value.substr(-1)))
         }
     }
 
@@ -164,6 +216,31 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
                 <InputWrapper style={{borderBottom: '1px solid black'}}>
                     <Label>Show cards at start</Label>
                     <CheckBox checked={showCards} onChange={(e)=> setShowCards(e.target.checked)}/>
+                </InputWrapper>
+                <SettingsTitle>Hotkeys</SettingsTitle>
+                <InputWrapper>
+                    <Label>Mute sound</Label>
+                    <KeyInput value={muteSoundKey} onChange={(e) => handleChangeHotkeys(e.target.value, 'mute')}/>
+                </InputWrapper>
+                <InputWrapper>
+                    <Label>Autoplay</Label>
+                    <KeyInput value={autoplayKey} onChange={(e) => handleChangeHotkeys(e.target.value, 'autoplay')}/>
+                </InputWrapper>
+                <InputWrapper>
+                    <Label>Fullscreen</Label>
+                    <KeyInput value={fullscreenKey} onChange={(e) => handleChangeHotkeys(e.target.value, 'fullscreen')}/>
+                </InputWrapper>
+                <InputWrapper>
+                    <Label>New game</Label>
+                    <KeyInput value={newGameKey} onChange={(e) => handleChangeHotkeys(e.target.value, 'newgame')}/>
+                </InputWrapper>
+                <InputWrapper>
+                    <Label>Stats</Label>
+                    <KeyInput value={statsKey} onChange={(e) => handleChangeHotkeys(e.target.value, 'stats')}/>
+                </InputWrapper>
+                <InputWrapper style={{borderBottom: '1px solid black'}}>
+                    <Label>Settings</Label>
+                    <KeyInput value={settingsKey} onChange={(e) => handleChangeHotkeys(e.target.value, 'settings')}/>
                 </InputWrapper>
                 <ButtonsWrapper>
                     <Button onClick={onClickSaveSettings}>

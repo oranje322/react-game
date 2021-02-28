@@ -41,7 +41,8 @@ interface IKeys {
     autoplayKey: string
     fullscreenKey: string,
     newGameKey: string,
-    statsKey: string
+    statsKey: string,
+    settingsKey: string
 }
 
 
