@@ -5,7 +5,7 @@ import backgroundImg from '../assets/img/background.jpg'
 import {useDispatch, useSelector} from "react-redux";
 import {IGameCard, IState} from "../types/reducerTypes";
 import {flipCard, muteSoundAC, setCards} from "../redux/actions";
-import {initialThunk, newGameThunk} from "../redux/thunk";
+import {autoPlayThunk, initialThunk, newGameThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
 import {Settings} from './Settings';
 import {Stats} from "./Stats";
@@ -65,7 +65,12 @@ const Game: FC = () => {
         dispatch(initialThunk())
     }, [])
 
-    const handleKeyDown = (e:React.KeyboardEvent) => {
+
+
+
+    //todo звук фейла
+
+    document.onkeydown = (e) => {
         if(e.key === keys.muteKey) {
             mute(!muteSound)
             dispatch(muteSoundAC())
@@ -82,17 +87,15 @@ const Game: FC = () => {
         if(e.key === keys.settingsKey) {
             setOpenSettings(prev => !prev)
         }
-
+        if(e.key === keys.autoplayKey) {
+            dispatch(autoPlayThunk())
+        }
     }
-
-
-    //todo звук фейла
-
 
 
 
     return (
-        <Wrapper tabIndex={0} onKeyDown={(e) => handleKeyDown(e)}>
+        <Wrapper>
             <GameContainer>
 
                 {
