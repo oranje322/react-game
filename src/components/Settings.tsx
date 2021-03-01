@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import {ISettingsProps} from "../types/propsTypes";
 import {useDispatch, useSelector} from "react-redux";
@@ -118,6 +118,7 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
     const [settingsKey, setSettingsKey] = useState('z')
 
     const dispatch = useDispatch()
+
 
     const ref = useRef<HTMLDivElement>(null)
 

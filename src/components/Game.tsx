@@ -4,15 +4,15 @@ import Card from "./Card";
 import backgroundImg from '../assets/img/background.jpg'
 import {useDispatch, useSelector} from "react-redux";
 import {IGameCard, IState} from "../types/reducerTypes";
-import {flipCard, muteSoundAC, setCards} from "../redux/actions";
-import {autoPlayThunk, initialThunk, newGameThunk} from "../redux/thunk";
+import {flipCard, muteSoundAC, reloadedStateAC, setCards} from "../redux/actions";
+import {autoPlayThunk, initialThunk, newGameThunk, onClosePageThunk, onReloadedPageThunk, settingsThunk} from "../redux/thunk";
 import GameMenu from "./GameMenu";
 import {Settings} from './Settings';
 import {Stats} from "./Stats";
 import {useRef} from 'react';
 import Footer from './Footer';
 import FinishGame from "./FinishGame";
-import {mute} from "../utils/sounds";
+import {mainThemeSound, mute} from "../utils/sounds";
 
 const GameContainer = styled.div`
     display: flex;
@@ -65,8 +65,17 @@ const Game: FC = () => {
         dispatch(initialThunk())
     }, [])
 
+    useEffect(() => {
+        let gameState = localStorage.getItem('memory-game-state')
+        if(gameState !== null) {
+            dispatch(onReloadedPageThunk(JSON.parse(gameState)))
+        }
+    },[])
 
 
+    window.onbeforeunload = () => {
+        dispatch(onClosePageThunk())
+    }
 
     //todo звук фейла
 

@@ -11,7 +11,7 @@ import {
     closeCard,
     finishGame,
     flipCard,
-    pairsFoundAC,
+    pairsFoundAC, reloadedStateAC,
     setCards,
     setFlippedCard, setSettings, startGame
 } from "./actions";
@@ -125,12 +125,9 @@ export const settingsThunk = (settings: ISettings): ThunkAction<void, IState, un
         successSound.volume(settings.soundsVolume)
 
         dispatch(setSettings(settings))
+
     }
 }
-
-
-
-
 
 
 export const autoPlayThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
@@ -176,20 +173,25 @@ export const autoPlayThunk = (): ThunkAction<void, IState, unknown, AllActionTyp
             });
             getState().autoplayStep < gameMode(getState().settings.gameMode)*2 - 1 ? dispatch(autoplayStep(getState().autoplayStep+1))
                 : (dispatch(autoplayStep(0)));
-
-
-
-
-
-
-
-
         }
     }
 }
 
 
+export const onClosePageThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
+    return (dispatch, getState) => {
+        // localStorage.setItem('memory-game-stats', JSON.stringify(getState().stat))
+        // localStorage.setItem('memory-game-settings', JSON.stringify(getState().settings))
+        localStorage.setItem('memory-game-state', JSON.stringify(getState()))
+    }
+}
 
+export const onReloadedPageThunk = (state:IState): ThunkAction<void, IState, unknown, AllActionTypes> => {
+    return (dispatch, getState) => {
+        dispatch(reloadedStateAC(state))
+        mainThemeSound.play()
+    }
+}
 
 
 

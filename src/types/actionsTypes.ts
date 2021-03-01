@@ -3,12 +3,12 @@ import {
     CLEAR_FLIPPED_CARDS,
     CLOSE_ALL_CARDS,
     CLOSE_CARD, FINISH_GAME,
-    FLIP_CARD, MUTE_SOUND, PAIRS_FOUND,
+    FLIP_CARD, MUTE_SOUND, PAIRS_FOUND, RELOADED_STATE,
     SET_CARDS,
     SET_FLIPPED_CARD, SET_SETTINGS,
     START_GAME
 } from "../redux/const";
-import {IGameCard, ISettings, IStat} from "./reducerTypes";
+import {IGameCard, ISettings, IStat, IState} from "./reducerTypes";
 
 
 export interface ISetCards {
@@ -73,9 +73,14 @@ export interface IAutoplayStep {
     payload: number
 }
 
+export interface IReloadedState {
+    type: typeof RELOADED_STATE,
+    payload: IState
+}
+
 
 
 export type AllActionTypes = ISetCards | IFlipCard | ICloseAllCards |
     ISetFlippedCard | IClearFlippedCards | IStartGame | ICloseCard |
     ISetSettings | IFinishGame | IPairsFound | IMuteSound | IAutoplayMemory |
-    IAutoplayStep
+    IAutoplayStep | IReloadedState

@@ -8,6 +8,7 @@ import {
     FLIP_CARD,
     MUTE_SOUND,
     PAIRS_FOUND,
+    RELOADED_STATE,
     SET_CARDS,
     SET_FLIPPED_CARD,
     SET_SETTINGS,
@@ -176,6 +177,11 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
             return {
                 ...state,
                 autoplayStep: action.payload
+            }
+        }
+        case RELOADED_STATE: {
+            return {
+                ...action.payload
             }
         }
         default:
