@@ -8,7 +8,9 @@ export interface IState {
     settings: ISettings
     stat: Array<IStat>,
     count: number,
-    muteSound: boolean
+    muteSound: boolean,
+    autoplayMemory: IGameCard[],
+    autoplayStep: number
 }
 
 export type CardType = string

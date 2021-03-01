@@ -1,4 +1,5 @@
 import {
+    AUTOPLAY_MEMORY, AUTOPLAY_STEP,
     CLEAR_FLIPPED_CARDS,
     CLOSE_ALL_CARDS,
     CLOSE_CARD, FINISH_GAME,
@@ -62,8 +63,19 @@ export interface IMuteSound {
     type: typeof MUTE_SOUND
 }
 
+export interface IAutoplayMemory {
+    type: typeof AUTOPLAY_MEMORY
+    payload: IGameCard
+}
+
+export interface IAutoplayStep {
+    type: typeof AUTOPLAY_STEP
+    payload: number
+}
+
 
 
 export type AllActionTypes = ISetCards | IFlipCard | ICloseAllCards |
     ISetFlippedCard | IClearFlippedCards | IStartGame | ICloseCard |
-    ISetSettings | IFinishGame | IPairsFound | IMuteSound
+    ISetSettings | IFinishGame | IPairsFound | IMuteSound | IAutoplayMemory |
+    IAutoplayStep

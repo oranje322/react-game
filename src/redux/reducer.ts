@@ -1,4 +1,6 @@
 import {
+    AUTOPLAY_MEMORY,
+    AUTOPLAY_STEP,
     CLEAR_FLIPPED_CARDS,
     CLOSE_ALL_CARDS,
     CLOSE_CARD,
@@ -56,6 +58,8 @@ const initialState: IState = {
     stat: [],
     count: 0,
     muteSound: false,
+    autoplayMemory: [],
+    autoplayStep: 0
 }
 
 const reducer = (state = initialState, action: AllActionTypes): IState => {
@@ -160,6 +164,18 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
             return {
                 ...state,
                 muteSound: !state.muteSound
+            }
+        }
+        case AUTOPLAY_MEMORY: {
+            return {
+                ...state,
+                autoplayMemory: [...state.autoplayMemory, action.payload]
+            }
+        }
+        case AUTOPLAY_STEP: {
+            return {
+                ...state,
+                autoplayStep: action.payload
             }
         }
         default:

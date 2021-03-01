@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {newGameThunk} from "../redux/thunk";
+import {autoPlayThunk, newGameThunk} from "../redux/thunk";
 import {IGameMenuProps} from "../types/propsTypes";
 import {IState} from "../types/reducerTypes";
 import {mute} from "../utils/sounds";
@@ -78,6 +78,9 @@ const GameMenu = ({setOpenSettings, setOpenStats}:IGameMenuProps) => {
             </MenuBtn>
             <MenuBtn onClick={onClickMute}>
                 {muteSound ? 'Unmute' : 'Mute' }
+            </MenuBtn>
+            <MenuBtn onClick={() => dispatch(autoPlayThunk())}>
+                Autoplay
             </MenuBtn>
             <MenuBtn onClick={onClickStartGame}>
                 New Game

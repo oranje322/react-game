@@ -1,4 +1,6 @@
 import {
+    IAutoplayMemory,
+    IAutoplayStep,
     IClearFlippedCards,
     ICloseAllCards,
     ICloseCard,
@@ -12,6 +14,8 @@ import {
     IStartGame
 } from "../types/actionsTypes";
 import {
+    AUTOPLAY_MEMORY,
+    AUTOPLAY_STEP,
     CLEAR_FLIPPED_CARDS,
     CLOSE_ALL_CARDS,
     CLOSE_CARD,
@@ -38,3 +42,5 @@ export const finishGame = (payload:IStat):IFinishGame => ({type: FINISH_GAME, pa
 export const setSettings = (payload:ISettings):ISetSettings => ({type: SET_SETTINGS, payload})
 export const pairsFoundAC = (payload:number):IPairsFound => ({type: PAIRS_FOUND, payload})
 export const muteSoundAC = ():IMuteSound => ({type: MUTE_SOUND})
+export const autoplayMemory = (payload:IGameCard):IAutoplayMemory => ({type: AUTOPLAY_MEMORY, payload})
+export const autoplayStep = (payload: number):IAutoplayStep => ({type: AUTOPLAY_STEP, payload})

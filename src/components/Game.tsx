@@ -85,10 +85,10 @@ const Game: FC = () => {
 
     }
 
-    //todo добавить хоткеи
-    //todo добавить страницу about
+
     //todo звук фейла
-    //todo автоплей
+
+
 
 
     return (

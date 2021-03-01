@@ -90,10 +90,6 @@ const HotkeyWrapper = styled.div`
     justify-content: center;
 `;
 
-const HotkeyText = styled.span`
-    
-`;
-
 const KeyInput = styled.input`
     outline: none;
     border: none;
@@ -121,7 +117,6 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
     const [statsKey, setStatsKey] = useState('s')
     const [settingsKey, setSettingsKey] = useState('z')
 
-
     const dispatch = useDispatch()
 
     const ref = useRef<HTMLDivElement>(null)
@@ -148,9 +143,6 @@ export const Settings = ({setOpenSettings}:ISettingsProps) => {
         }
         setOpenSettings(false)
     }
-
-    console.log(muteSoundKey)
-
 
     const handleClickOutside = (e:any) => {
         if(!ref?.current?.contains(e.target)) {
