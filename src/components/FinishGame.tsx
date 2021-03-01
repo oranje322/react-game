@@ -12,19 +12,19 @@ const FinishGameContainer = styled.div`
   flex-direction: column;
   align-items: center;
   
-    @media(max-width: 940px) {
-      max-width: 400px;
-      }
+  @media(max-width: 940px) {
+    max-width: 400px;
+  }
 `;
 
 const FinishText = styled.p`
-    color: #fff;
-    font-size: 28px;
-    font-weight: bold;
+  color: #fff;
+  font-size: 28px;
+  font-weight: bold;
 `;
 
 const Img = styled.img`
-    margin-top: 50px;
+  margin-top: 50px;
 `;
 
 const NewGameBtn = styled.button`
@@ -40,81 +40,77 @@ const NewGameBtn = styled.button`
 `;
 
 const Table = styled.table`
-    border-collapse: collapse;
-    width: 100%;
-    text-align: left;
-    color: #fff;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+  color: #fff;
 `;
 
 const Tr = styled.tr`
-    display: flex;
+  display: flex;
 `;
 
 const Th = styled.th`
   border: 1px solid #f5f6ef;
-    padding: 5px;
-    flex: 1 1;
+  padding: 5px;
+  flex: 1 1;
 `;
 
 const Td = styled.td`
   border: 1px solid #f5f6ef;
-    padding: 5px;
-    flex: 1 1;
+  padding: 5px;
+  flex: 1 1;
 `;
 
 const Caption = styled.caption`
-    margin: 10px 0;
-    font-weight: bold;
-    font-size: 20px;
-    
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 20px;
 `;
-
 
 const FinishGame = () => {
 
-    const steps = useSelector((state: IState) => state.count)
-    const stat = useSelector((state: IState) => state.stat)
+	const steps = useSelector((state: IState) => state.count)
+	const stat = useSelector((state: IState) => state.stat)
 
-    const last5try = stat.slice(-5)
+	const last5try = stat.slice(-5)
 
-    const gameModes = ['Junior', 'Middle', 'Senior']
+	const gameModes = ['Junior', 'Middle', 'Senior']
 
+	const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
-
-    return (
-        <FinishGameContainer>
-            <Img src={gameOverImg} alt="gameover"/>
-            <FinishText>
-                You spent {steps} steps for this game, dude.
-            </FinishText>
-            <NewGameBtn onClick={() => dispatch(newGameThunk())}>Play again</NewGameBtn>
-
-            {!!last5try.length &&
-            <Table>
-                <Caption>Last 5 attempts</Caption>
-                <tbody>
-                <Tr>
-                    <Th>#</Th>
-                    <Th>Steps</Th>
-                    <Th>Mode</Th>
-                    <Th>Date</Th>
-                </Tr>
-                {
-                    last5try.map((s, index) => (
-                        <Tr key={index}>
-                            <Td>{s.attempt}</Td>
-                            <Td>{s.steps}</Td>
-                            <Td>{gameModes[s.gameMode]}</Td>
-                            <Td>{s.date}</Td>
-                        </Tr>
-                    ))
-                }
-                </tbody>
-            </Table>
-            }
-        </FinishGameContainer>
-    );
+	return (
+		<FinishGameContainer>
+			<Img src={gameOverImg} alt="gameover"/>
+			<FinishText>
+				You spent {steps} steps for this game, dude.
+			</FinishText>
+			<NewGameBtn onClick={() => dispatch(newGameThunk())}>Play again</NewGameBtn>
+			{!!last5try.length &&
+			<Table>
+				<Caption>Last 5 attempts</Caption>
+				<tbody>
+				<Tr>
+					<Th>#</Th>
+					<Th>Steps</Th>
+					<Th>Mode</Th>
+					<Th>Date</Th>
+				</Tr>
+				{
+					last5try.map((s, index) => (
+						<Tr key={index}>
+							<Td>{s.attempt}</Td>
+							<Td>{s.steps}</Td>
+							<Td>{gameModes[s.gameMode]}</Td>
+							<Td>{s.date}</Td>
+						</Tr>
+					))
+				}
+				</tbody>
+			</Table>
+			}
+		</FinishGameContainer>
+	);
 };
 
 export default FinishGame;

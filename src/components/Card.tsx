@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
-import img from '../assets/img/ram.png'
-import back from '../assets/img/back.jpg'
 import {ICardProps} from "../types/propsTypes";
 import {useDispatch} from "react-redux";
 import {flipCardThunk} from "../redux/thunk";
@@ -16,7 +14,7 @@ const CardContainer = styled.div`
   transform-style: preserve-3d;
   cursor: pointer;
   &:hover {
-  box-shadow: 0 0 12px 9px rgba(0, 201, 6, 0.33);
+    box-shadow: 0 0 12px 9px rgba(0, 201, 6, 0.33);
   }
   &.flip {
     transform: rotateY(180deg);}
@@ -43,20 +41,20 @@ const ImgBack = styled.img`
 
 const Card = ({card}: ICardProps) => {
 
-    const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-    const {imageUrl, isFlipped, pairFound} = card
+	const {imageUrl, isFlipped, pairFound} = card
 
-    const onClickCard = () => {
-        dispatch(flipCardThunk(card))
-    }
+	const onClickCard = () => {
+		dispatch(flipCardThunk(card))
+	}
 
-    return (
-        <CardContainer onClick={onClickCard} className={`${isFlipped ? 'flip' : ''} ${pairFound ? 'disable' : ''}`}>
-            <ImgFront src={`/img/${imageUrl}`}/>
-            <ImgBack src={`/img/backface.jpg`}/>
-        </CardContainer>
-    );
+	return (
+		<CardContainer onClick={onClickCard} className={`${isFlipped ? 'flip' : ''} ${pairFound ? 'disable' : ''}`}>
+			<ImgFront src={`/img/${imageUrl}`}/>
+			<ImgBack src={`/img/backface.jpg`}/>
+		</CardContainer>
+	);
 };
 
 export default Card;
