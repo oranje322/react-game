@@ -13,6 +13,7 @@ const StatsOverlay = styled.div`
     right: 0;
     background-color: rgba(34, 34, 34, 0.8);
     display: flex;
+    padding: 5px;
 `;
 
 const StatsWrapper = styled.div`

@@ -18,22 +18,32 @@ const GameContainer = styled.div`
     display: flex;
     justify-content: center;
     padding: 20px;
+    
+    @media (max-width: 580px) {
+      flex-direction: column;
+  }
 `;
 
 const CardGrid = styled.div`
   width: 700px;
-  min-height: 95vh;
+  align-self: flex-start;
   perspective: 700px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 140px);
+  grid-template-rows: repeat(auto, 140px);
   grid-column-gap: 5px;
   grid-row-gap: 5px;
   
   @media(max-width: 940px) {
       max-width: 400px;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(12, 1fr)
+      grid-template-rows: repeat(12, 1fr);
+      align-self: center;
+      perspective: 1000px;
+  }
+  
+  @media(max-width: 580px) {
+    order: 2;
   }
 `;
 
@@ -41,7 +51,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
+     min-height: 100vh;
     
     :focus {
        outline: none;

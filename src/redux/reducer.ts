@@ -92,7 +92,8 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
                 ...state,
                 isStarted: true,
                 isFinished: false,
-                count: 0
+                count: 0,
+                pairsFound: 0
             }
         }
         case FINISH_GAME: {

@@ -16,7 +16,7 @@ import {
     setFlippedCard, setSettings, startGame
 } from "./actions";
 import {Howler} from "howler";
-import {failSound, mainThemeSound, successSound, victorySound} from "../utils/sounds";
+import {failSound, mainThemeSound, mute, successSound, victorySound} from "../utils/sounds";
 
 
 export const initialThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
@@ -40,9 +40,9 @@ export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionType
 
         mainThemeSound.stop()
 
-        if (getState().stat.length > 0) {
-            dispatch(initialThunk())
-        }
+
+        dispatch(initialThunk())
+
 
         setTimeout(() => {
             dispatch(closeAllCards())
@@ -180,8 +180,6 @@ export const autoPlayThunk = (): ThunkAction<void, IState, unknown, AllActionTyp
 
 export const onClosePageThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
-        // localStorage.setItem('memory-game-stats', JSON.stringify(getState().stat))
-        // localStorage.setItem('memory-game-settings', JSON.stringify(getState().settings))
         localStorage.setItem('memory-game-state', JSON.stringify(getState()))
     }
 }
@@ -189,7 +187,12 @@ export const onClosePageThunk = (): ThunkAction<void, IState, unknown, AllAction
 export const onReloadedPageThunk = (state:IState): ThunkAction<void, IState, unknown, AllActionTypes> => {
     return (dispatch, getState) => {
         dispatch(reloadedStateAC(state))
+
         mainThemeSound.play()
+        if(getState().muteSound) {
+            mute(true)
+        }
+
     }
 }
 
@@ -197,158 +200,3 @@ export const onReloadedPageThunk = (state:IState): ThunkAction<void, IState, unk
 
 
 
-
-
-
-
-
-
-// export const autoPlayThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
-//     return async (dispatch, getState) => {
-//
-//         dispatch(newGameThunk())
-//
-//         await new Promise((res) => {
-//             setTimeout(() => {
-//                 res(true)
-//             }, getState().settings.speed)
-//         })
-//
-//         // setTimeout(() => {
-//
-//
-//
-//         while (getState().pairsFound !== gameMode(getState().settings.gameMode)) {
-//
-//             await new Promise((res) => {
-//                 setTimeout(() => {
-//                     res(true)
-//                 }, getState().settings.speed)
-//             })
-//
-//             if (getState().flippedCards.length === 0) {
-//
-//                 dispatch(flipCard(getState().gameCards[getState().autoplayStep].id))
-//                 dispatch(setFlippedCard(getState().gameCards[getState().autoplayStep]))
-//                 dispatch(autoplayMemory(getState().gameCards[getState().autoplayStep]))
-//
-//                 dispatch(autoplayStep(getState().autoplayStep + 1))
-//                 continue
-//
-//             }
-//
-//             if (getState().flippedCards.length === 1) {
-//
-//                 console.log(getState().flippedCards[0]?.id)
-//                 console.log(getState().gameCards[getState().autoplayStep].id)
-//                 if (getState().flippedCards[0]?.id !== getState().gameCards[getState().autoplayStep].id) {
-//
-//
-//                     //если такая карта уже попадалась
-//                     let isFind = getState().autoplayMemory.filter(obj => obj.imageUrl === getState().gameCards[getState().autoplayStep].imageUrl)
-//
-//
-//                     if (isFind.length > 0) {
-//
-//
-//                         dispatch(flipCard(isFind[0].id))
-//                         dispatch(setFlippedCard(isFind[0]))
-//
-//
-//                         let changedCards = getState().gameCards.map(card => {
-//
-//                             if (card.imageUrl === getState().flippedCards[0].imageUrl) {
-//                                 return {
-//                                     id: card.id,
-//                                     imageUrl: card.imageUrl,
-//                                     isFlipped: true,
-//                                     pairFound: true
-//                                 }
-//                             } else {
-//                                 return card
-//                             }
-//                         })
-//
-//                         //успешный диспатч
-//                         successSound.play()
-//                         dispatch(pairsFoundAC(getState().pairsFound + 1))
-//                         dispatch(setCards(changedCards))
-//                         dispatch(clearFlippedCards())
-//
-//                         dispatch(autoplayStep(getState().autoplayStep + 1))
-//
-//
-//
-//                     } else {
-//
-//
-//                         // dispatch(autoplayStep(getState().autoplayStep + 1))
-//                         dispatch(flipCard(getState().gameCards[getState().autoplayStep].id))
-//                         dispatch(setFlippedCard(getState().gameCards[getState().autoplayStep]))
-//                         dispatch(autoplayMemory(getState().gameCards[getState().autoplayStep]))
-//
-//
-//
-//
-//                         // setTimeout(() => {
-//                             if (getState().flippedCards.length === 2) {
-//
-//                                 //если имена карт совпали, диспатчим эту пару с флагом pairFround=true
-//                                 if (getState().flippedCards[0].imageUrl === getState().flippedCards[1].imageUrl) {
-//                                     let changedCards = getState().gameCards.map(card => {
-//                                         if (card.imageUrl === getState().flippedCards[0].imageUrl) {
-//                                             return {
-//                                                 id: card.id,
-//                                                 imageUrl: card.imageUrl,
-//                                                 isFlipped: true,
-//                                                 pairFound: true
-//                                             }
-//                                         } else {
-//                                             return card
-//                                         }
-//                                     })
-//                                     //успешный диспатч
-//
-//                                     successSound.play()
-//                                     dispatch(pairsFoundAC(getState().pairsFound + 1))
-//                                     dispatch(setCards(changedCards))
-//                                     dispatch(clearFlippedCards())
-//                                     dispatch(autoplayStep(getState().autoplayStep + 1))
-//
-//
-//                                 } else {
-//
-//                                     //провальный диспатч
-//                                     failSound.play()
-//                                     dispatch(closeCard(getState().flippedCards[0].id))
-//                                     dispatch(closeCard(getState().flippedCards[1].id))
-//                                     dispatch(clearFlippedCards())
-//                                     dispatch(autoplayStep(getState().autoplayStep + 1))
-//                                 }
-//                             }
-//                         // }, getState().settings.speed)
-//                     }
-//                 }
-//
-//
-//             }
-//
-//         }
-//
-//         console.log(getState().pairsFound)
-//         mainThemeSound.stop()
-//         victorySound.play()
-//         dispatch(finishGame({
-//             attempt: getState().stat.length + 1,
-//             steps: getState().count,
-//             gameMode: getState().settings.gameMode,
-//             date: new Date().toLocaleString()
-//         }))
-//
-//
-//         // }, 2000)
-//
-//
-//     }
-//
-// }

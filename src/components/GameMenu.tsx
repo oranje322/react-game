@@ -11,6 +11,14 @@ const GameMenuContainer = styled.div`
     margin-left: 30px;
     display: flex;
     flex-direction: column;
+    
+    @media (max-width: 580px) {
+      order: 1;
+      flex-direction: row;
+      margin: 0;
+      flex-wrap: wrap;
+      padding-left: 40px;
+  }
    
 `;
 
@@ -24,6 +32,12 @@ const MenuBtn = styled.button`
   font-size: 18px;
   max-width: 120px;
   margin-bottom: 10px;
+  
+  @media (max-width: 580px) {
+      width: 33.33%;
+      margin-right: 6px;
+  }
+
 `;
 
 const CounterText = styled.p`
@@ -31,6 +45,10 @@ const CounterText = styled.p`
    margin: 5px 0;
    font-size: 18px;
    margin-bottom: 20px;
+   
+   @media (max-width: 580px) {
+      width: 100%;
+  }
 `;
 
 
