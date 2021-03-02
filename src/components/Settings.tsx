@@ -130,7 +130,7 @@ export const Settings = ({setOpenSettings}: ISettingsProps) => {
 		setOpenSettings(false)
 	}
 
-	const handleClickOutside = (e: any) => {
+	const handleClickOutside = (e:any) => {
 		if (!ref?.current?.contains(e.target)) {
 			setOpenSettings(false)
 		}
