@@ -15,7 +15,7 @@ import {mute} from "../utils/sounds";
 const GameContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 20px;
+  
     
   @media (max-width: 580px) {
     flex-direction: column;
@@ -49,7 +49,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
+  min-height: 99vh;
     
   :focus {
     outline: none;

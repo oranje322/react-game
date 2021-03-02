@@ -93,7 +93,10 @@ const reducer = (state = initialState, action: AllActionTypes): IState => {
 				isStarted: true,
 				isFinished: false,
 				count: 0,
-				pairsFound: 0
+				pairsFound: 0,
+				autoplayStep: 0,
+				autoplayMemory: [],
+				flippedCards: []
 			}
 		}
 		case FINISH_GAME: {

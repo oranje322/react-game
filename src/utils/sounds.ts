@@ -27,3 +27,13 @@ export const mute = (value: boolean) => {
 	failSound.mute(value)
 	successSound.mute(value)
 }
+
+export const changeMusicVolume = (value:number) => {
+	mainThemeSound.volume(value)
+}
+
+export const changeSoundsVolume = (value:number) => {
+	victorySound.volume(value)
+	failSound.volume(value)
+	successSound.volume(value)
+}

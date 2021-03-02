@@ -18,7 +18,15 @@ import {
 	setSettings,
 	startGame
 } from "./actions";
-import {failSound, mainThemeSound, mute, successSound, victorySound} from "../utils/sounds";
+import {
+	changeMusicVolume,
+	changeSoundsVolume,
+	failSound,
+	mainThemeSound,
+	mute,
+	successSound,
+	victorySound
+} from "../utils/sounds";
 
 export const initialThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
 	return (dispatch, getState) => {
@@ -110,10 +118,8 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
 export const settingsThunk = (settings: ISettings): ThunkAction<void, IState, unknown, AllActionTypes> => {
 	return (dispatch, getState) => {
 		//volume
-		mainThemeSound.volume(settings.musicVolume)
-		victorySound.volume(settings.soundsVolume)
-		failSound.volume(settings.soundsVolume)
-		successSound.volume(settings.soundsVolume)
+		changeMusicVolume(settings.musicVolume)
+		changeSoundsVolume(settings.soundsVolume)
 
 		dispatch(setSettings(settings))
 	}
@@ -171,7 +177,11 @@ export const onClosePageThunk = (): ThunkAction<void, IState, unknown, AllAction
 export const onReloadedPageThunk = (state: IState): ThunkAction<void, IState, unknown, AllActionTypes> => {
 	return (dispatch, getState) => {
 		dispatch(reloadedStateAC(state))
+
+		changeMusicVolume(getState().settings.musicVolume)
+		changeSoundsVolume(getState().settings.soundsVolume)
 		mainThemeSound.play()
+
 		if (getState().muteSound) {
 			mute(true)
 		}

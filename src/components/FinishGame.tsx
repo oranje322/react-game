@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {newGameThunk} from "../redux/thunk";
 import {IState} from "../types/reducerTypes";
-import gameOverImg from '../assets/otherImg/gameover.png'
 
 const FinishGameContainer = styled.div`
   width: 700px;
@@ -81,7 +80,7 @@ const FinishGame = () => {
 
 	return (
 		<FinishGameContainer>
-			<Img src={gameOverImg} alt="gameover"/>
+			<Img src={'img/gameover.png'} alt="gameover"/>
 			<FinishText>
 				You spent {steps} steps for this game, dude.
 			</FinishText>
