@@ -1,4 +1,4 @@
-export const gameMode = (mode: number) => {
+export const numberPairs = (mode: number) => {
     let pairCount;
     if(mode === 0) {
         pairCount = 6

@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from "styled-components";
 import {ICardProps} from "../types/propsTypes";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {flipCardThunk} from "../redux/thunk";
+import {IState} from "../types/reducerTypes";
 
 const CardContainer = styled.div`
   height: 130px;
@@ -43,6 +44,8 @@ const Card = ({card}: ICardProps) => {
 
 	const dispatch = useDispatch()
 
+	const isAutoplay = useSelector((state:IState) => state.autoplayMemory.length > 0)
+
 	const {imageUrl, isFlipped, pairFound} = card
 
 	const onClickCard = () => {
@@ -50,7 +53,7 @@ const Card = ({card}: ICardProps) => {
 	}
 
 	return (
-		<CardContainer onClick={onClickCard} className={`${isFlipped ? 'flip' : ''} ${pairFound ? 'disable' : ''}`}>
+		<CardContainer onClick={onClickCard} className={`${isFlipped ? 'flip' : ''} ${isAutoplay ? 'disable' : ''}`}>
 			<ImgFront src={`/img/${imageUrl}`}/>
 			<ImgBack src={`/img/backface.jpg`}/>
 		</CardContainer>

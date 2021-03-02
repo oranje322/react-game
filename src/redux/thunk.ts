@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk";
 import {AllActionTypes} from "../types/actionsTypes";
 import {IGameCard, ISettings, IState} from "../types/reducerTypes";
-import {gameMode} from "../utils/gameMode";
+import {numberPairs} from "../utils/gameMode";
 import {shuffleArray} from "../utils/shuffleArray";
 import {
 	autoplayMemory,
@@ -30,7 +30,7 @@ import {
 
 export const initialThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
 	return (dispatch, getState) => {
-		let pairCount = gameMode(getState().settings.gameMode)
+		let pairCount = numberPairs(getState().settings.gameMode)
 
 		let oldCards = shuffleArray(getState().cards).slice(0, pairCount)
 		const cards = shuffleArray([...oldCards, ...oldCards]).map((imageUrl, index) => ({
@@ -45,13 +45,13 @@ export const initialThunk = (): ThunkAction<void, IState, unknown, AllActionType
 
 export const newGameThunk = (): ThunkAction<void, IState, unknown, AllActionTypes> => {
 	return (dispatch, getState) => {
-		mainThemeSound.stop()
 
 		dispatch(initialThunk())
 
 		setTimeout(() => {
 			dispatch(closeAllCards())
 			dispatch(startGame())
+			mainThemeSound.stop()
 			mainThemeSound.play()
 		}, getState().settings.speed)
 	}
@@ -90,7 +90,7 @@ export const flipCardThunk = (card: IGameCard): ThunkAction<void, IState, unknow
 								dispatch(pairsFoundAC(getState().pairsFound + 1))
 								dispatch(setCards(changedCards))
 								dispatch(clearFlippedCards())
-								if (getState().pairsFound === gameMode(getState().settings.gameMode)) {
+								if (getState().pairsFound === numberPairs(getState().settings.gameMode)) {
 									mainThemeSound.stop()
 									victorySound.play()
 									dispatch(finishGame({
@@ -136,6 +136,11 @@ export const autoPlayThunk = (): ThunkAction<void, IState, unknown, AllActionTyp
 		});
 
 		while (!getState().isFinished) {
+
+			if(getState().autoplayStep === numberPairs(getState().settings.gameMode) * 2) {
+				dispatch(autoplayStep(0))
+			}
+
 			if (getState().gameCards[getState().autoplayStep].pairFound) {
 				dispatch(autoplayStep(getState().autoplayStep + 1))
 				continue;
@@ -163,8 +168,13 @@ export const autoPlayThunk = (): ThunkAction<void, IState, unknown, AllActionTyp
 					resolve(true);
 				}, 2000);
 			});
-			getState().autoplayStep < gameMode(getState().settings.gameMode) * 2 - 1 ? dispatch(autoplayStep(getState().autoplayStep + 1))
+
+
+
+			console.log('do',getState().autoplayStep, numberPairs(getState().settings.gameMode)*2 -1)
+			getState().autoplayStep < numberPairs(getState().settings.gameMode) * 2 - 1 ? dispatch(autoplayStep(getState().autoplayStep + 1))
 				: (dispatch(autoplayStep(0)));
+			console.log(getState().autoplayStep, numberPairs(getState().settings.gameMode)*2 -1)
 		}
 	}
 }
