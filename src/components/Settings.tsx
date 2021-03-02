@@ -85,7 +85,7 @@ const KeyInput = styled.input`
   outline: none;
   border: none;
   font-weight: bold;
-  width: 30px;
+  max-width: 100px;
   font-size: 18px;
 `;
 
@@ -99,12 +99,12 @@ export const Settings = ({setOpenSettings}: ISettingsProps) => {
 	const [showCards, setShowCards] = useState(settings.showCards)
 	const [musicVolume, setMusicVolume] = useState(settings.musicVolume)
 	const [soundsVolume, setSoundsVolume] = useState(settings.soundsVolume)
-	const [muteSoundKey, setMuteSoundKey] = useState('m')
-	const [autoplayKey, setAutoPlayKey] = useState('a')
-	const [fullscreenKey, setFullscreenKey] = useState('f')
-	const [newGameKey, setNewGameKey] = useState('n')
-	const [statsKey, setStatsKey] = useState('s')
-	const [settingsKey, setSettingsKey] = useState('z')
+	const [muteSoundKey, setMuteSoundKey] = useState(settings.keys.muteKey)
+	const [autoplayKey, setAutoPlayKey] = useState(settings.keys.autoplayKey)
+	const [fullscreenKey, setFullscreenKey] = useState(settings.keys.fullscreenKey)
+	const [newGameKey, setNewGameKey] = useState(settings.keys.newGameKey)
+	const [statsKey, setStatsKey] = useState(settings.keys.statsKey)
+	const [settingsKey, setSettingsKey] = useState(settings.keys.settingsKey)
 
 	const dispatch = useDispatch()
 

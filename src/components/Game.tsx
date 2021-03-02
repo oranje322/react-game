@@ -84,27 +84,31 @@ const Game: FC = () => {
 		dispatch(onClosePageThunk())
 	}
 
-	document.onkeydown = (e) => {
-		if (e.key === keys.muteKey) {
-			mute(!muteSound)
-			dispatch(muteSoundAC())
-		}
-		if (e.key === keys.fullscreenKey) {
-			document.documentElement.requestFullscreen()
-		}
-		if (e.key === keys.newGameKey) {
-			dispatch(newGameThunk())
-		}
-		if (e.key === keys.statsKey) {
-			setOpenStats(prev => !prev)
-		}
-		if (e.key === keys.settingsKey) {
-			setOpenSettings(prev => !prev)
-		}
-		if (e.key === keys.autoplayKey) {
-			dispatch(autoPlayThunk())
+
+	if(!openSettings) {
+		document.onkeydown = (e) => {
+			if (e.key === keys.muteKey) {
+				mute(!muteSound)
+				dispatch(muteSoundAC())
+			}
+			if (e.key === keys.fullscreenKey) {
+				document.documentElement.requestFullscreen()
+			}
+			if (e.key === keys.newGameKey) {
+				dispatch(newGameThunk())
+			}
+			if (e.key === keys.statsKey) {
+				setOpenStats(prev => !prev)
+			}
+			if (e.key === keys.settingsKey) {
+				setOpenSettings(prev => !prev)
+			}
+			if (e.key === keys.autoplayKey) {
+				dispatch(autoPlayThunk())
+			}
 		}
 	}
+
 
 	return (
 		<Wrapper>
