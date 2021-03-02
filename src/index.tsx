@@ -11,7 +11,7 @@ import {createGlobalStyle} from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   body {
   	min-height: 100vh;
-  	overflow: hidden;
+  	margin: 0;
     background: url('/img/background.jpg') 0 0/cover no-repeat;
 		font-family: 'Roboto', sans-serif;
   }

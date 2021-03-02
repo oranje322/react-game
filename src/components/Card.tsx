@@ -44,7 +44,7 @@ const Card = ({card}: ICardProps) => {
 
 	const dispatch = useDispatch()
 
-	const isAutoplay = useSelector((state:IState) => state.autoplayMemory.length > 0)
+	const isAutoplay = useSelector((state: IState) => state.autoplayMemory.length > 0)
 
 	const {imageUrl, isFlipped, pairFound} = card
 
@@ -53,7 +53,8 @@ const Card = ({card}: ICardProps) => {
 	}
 
 	return (
-		<CardContainer onClick={onClickCard} className={`${isFlipped ? 'flip' : ''} ${isAutoplay ? 'disable' : ''}`}>
+		<CardContainer onClick={onClickCard}
+									 className={`${isFlipped ? 'flip' : ''} ${isAutoplay || pairFound ? 'disable' : ''}`}>
 			<ImgFront src={`/img/${imageUrl}`}/>
 			<ImgBack src={`/img/backface.jpg`}/>
 		</CardContainer>

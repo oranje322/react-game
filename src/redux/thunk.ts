@@ -137,7 +137,7 @@ export const autoPlayThunk = (): ThunkAction<void, IState, unknown, AllActionTyp
 
 		while (!getState().isFinished) {
 
-			if(getState().autoplayStep === numberPairs(getState().settings.gameMode) * 2) {
+			if (getState().autoplayStep === numberPairs(getState().settings.gameMode) * 2) {
 				dispatch(autoplayStep(0))
 			}
 
@@ -166,15 +166,11 @@ export const autoPlayThunk = (): ThunkAction<void, IState, unknown, AllActionTyp
 			await new Promise((resolve) => {
 				setTimeout(() => {
 					resolve(true);
-				}, 2000);
+				}, 400 + getState().settings.speed);
 			});
 
-
-
-			console.log('do',getState().autoplayStep, numberPairs(getState().settings.gameMode)*2 -1)
 			getState().autoplayStep < numberPairs(getState().settings.gameMode) * 2 - 1 ? dispatch(autoplayStep(getState().autoplayStep + 1))
 				: (dispatch(autoplayStep(0)));
-			console.log(getState().autoplayStep, numberPairs(getState().settings.gameMode)*2 -1)
 		}
 	}
 }
