@@ -17,7 +17,7 @@ const GameMenuContainer = styled.div`
     flex-direction: row;
     margin: 0;
     flex-wrap: wrap;
-    padding-left: 40px;
+    max-width: 80%;
   }
 `;
 

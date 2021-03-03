@@ -20,10 +20,15 @@ const FinishText = styled.p`
   color: #fff;
   font-size: 28px;
   font-weight: bold;
+ 	max-width: 90%;
+ 	text-align: center;
+  
+  
 `;
 
 const Img = styled.img`
   margin-top: 50px;
+  width: 100%;
 `;
 
 const NewGameBtn = styled.button`

@@ -20,6 +20,7 @@ const GameContainer = styled.div`
     
   @media (max-width: 580px) {
     flex-direction: column;
+   	align-items: center;
   }
 `;
 
@@ -29,14 +30,14 @@ const CardGrid = styled.div`
   perspective: 700px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(auto, 140px);
+  grid-template-rows: repeat(auto-fill, 140px);
   grid-column-gap: 5px;
   grid-row-gap: 5px;
   
   @media(max-width: 940px) {
   	max-width: 400px;
   	grid-template-columns: repeat(3, 1fr);
-  	grid-template-rows: repeat(12, 1fr);
+  	grid-template-rows: repeat(auto-fill, 1fr);
   	align-self: center;
   	perspective: 1000px;
   }
